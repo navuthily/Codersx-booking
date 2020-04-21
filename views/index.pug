@@ -1,0 +1,12 @@
+html
+  head
+    title= title
+  body
+    h1= message
+    form(action='/search' method='get')
+     input(type='text' name='q')
+     button Search
+    ul
+     each todo in todos
+       li= todo.work
+     
