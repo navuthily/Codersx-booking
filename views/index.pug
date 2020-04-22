@@ -1,12 +1,35 @@
-html
-  head
-    title= title
-  body
-    h1= message
-    form(action='/search' method='get')
-     input(type='text' name='q')
-     button Search
-    ul
-     each todo in todos
-       li= todo.work
-     
+doctype html
+head
+  meta(charset='utf-8')
+  title Modal Example
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')
+// Button to Open the Modal
+h1= message
+form(action='/search' method='get')
+  input(type='text' name='q')
+  button Search
+  ul
+   each book in books
+    li
+    span= book.title
+    a(href=`/view/${book.id}`) view
+    button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal') edit 
+    #myModal.modal
+      .modal-dialog
+       form.modal-content(role='form', method='POST', action=`/edit/${book.id}`)
+        .modal-header
+         h4.modal-title Modal Heading
+         button.close(type='button', data-dismiss='modal') &times;
+    
+       .modal-body 
+          .form-group
+            label Title
+            input.form-control(type='text', name='title', placeholder='')
+
+       .modal-footer
+        button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+        input(type='hidden', name='_method', value='PUT')
+        button.btn.btn-primary(type='submit') Update
+script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
+script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
