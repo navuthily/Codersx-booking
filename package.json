@@ -1,15 +1,32 @@
 {
   "name": "na",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "pug": "^2.0.4",
+    "body-parser": "^1.19.0",
+    "lowdb": "^1.0.0",
+    "shortid": "^2.2.15",
+    "method-override": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/navuthily/yaya.git"
+  },
+  "bugs": {
+    "url": "https://github.com/navuthily/yaya/issues"
+  },
+  "homepage": "https://github.com/navuthily/yaya#readme",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.3"
   }
 }

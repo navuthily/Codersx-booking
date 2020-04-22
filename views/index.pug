@@ -1,0 +1,18 @@
+doctype html
+head
+  meta(charset='utf-8')
+  title Modal Example
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')
+// Button to Open the Modal
+h1= message
+form(action='/search' method='get')
+  input(type='text' name='q')
+  button Search
+  ul
+   each book in books
+    li= book.title
+     a(href=`/view/${book.id}`) view
+
+script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
+script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
