@@ -11,10 +11,11 @@ db.defaults({ transactions: []}).write();
  // for parsing routerlication/x-www-form-urlencoded
 const{
 getTransaction,
-postTransaction
+postTransaction,
+finish
 }=require('../controllers/transaction.controller')
 router.get("/",getTransaction );
 
 router.post("/", postTransaction);
-
+router.get('/:id/finish',finish)
 module.exports = router;

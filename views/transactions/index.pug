@@ -8,6 +8,14 @@ ul
       br
       span Borrower: 
       span= transaction.userName
+      br
+      span Status: 
+      if(transaction.isComplete==false)
+       a(href="#") Chua tra
+      else
+       a(href=`/transaction/${transaction.id}/finish`) Da tra 
+    
+   
 
 form(method="POST")
   lable Book title:
@@ -20,4 +28,3 @@ form(method="POST")
       option(value=user.id)= user.name
   br
   button create
-  
