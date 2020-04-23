@@ -6,23 +6,15 @@
 const express = require("express");
 const app = express();
 const port=4000;
-const bodyParser = require("body-parser");
-const low = require("lowdb");
-const FileSync = require("lowdb/adapters/FileSync");
-const adapter = new FileSync("db.json");
-const db = low(adapter);
-// Set some defaults
-db.defaults({ books: []}).write();
-
+var routerUser=require('./routes/user')
+const bodyParser = require("body-parser")
 app.use(express.static("public"));
 app.use(express.static("files"));
 app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
 app.set("view engine", "pug");
 app.set("views", "./views/");
 const methodOverride = require("method-override");
-const shortid = require("shortid");
-var books = db.get("books");
 
 app.use(
   methodOverride(req => {
@@ -34,49 +26,7 @@ app.use(
     }
   })
 );
-app.get("/", (request, response) => {
-  response.send("I love CodersX");
-});
-app.get("/books", function(req, res) {
-  res.render("index", { books: books.value() });
-});
-app.get("/search", function(req, res) {
-  var q = req.query.q;
-  var matched = books.value().filter(function(book) {
-    return book.title.toLowerCase().indexOf(q.toLowerCase()) !== -1;
-  });
-  res.render("index", { books: matched });
-});
-app.get("/create", function(req, res) {
-  res.render("create");
-});
-app.post("/create", function(req, res) {
-  req.body.id = shortid.generate();
-
-  books.push(req.body).write();
-  return res.redirect("/books");
-});
-app.get("/view/:id", function(req, res) {
-  var id = req.params.id;
-  var book = books.find({ id: id }).value();
-  return res.render("view", { book });
-});
-app.delete("/delete/:id", function(req, res) {
-  var id = req.params.id;
-  books
-    .remove({ id: id })
-    .write();
-  return res.redirect("/books");
-});
-app.put('/edit/:id', function(req,res){
-  var id=req.params.id;
-  books
-  .find({ id:id})
-  .assign({ title: req.body})
-  .write();
-  return res.redirect("/books");
-})
-// listen for requests :)
+app.use('/user', routerUser)
 app.listen(port, () => {
   console.log("Server listening on port " + port);
 });
