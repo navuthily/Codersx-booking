@@ -6,7 +6,9 @@
 const express = require("express");
 const app = express();
 const port=4000;
-var routerUser=require('./routes/user')
+var routerUser=require('./routes/users')
+var routerBook=require('./routes/books')
+var routerTransaction=require('./routes/transaction')
 const bodyParser = require("body-parser")
 app.use(express.static("public"));
 app.use(express.static("files"));
@@ -27,6 +29,8 @@ app.use(
   })
 );
 app.use('/user', routerUser)
+app.use('/book',routerBook)
+app.use('/transaction', routerTransaction)
 app.listen(port, () => {
   console.log("Server listening on port " + port);
 });

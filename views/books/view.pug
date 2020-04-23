@@ -8,14 +8,14 @@ p Book:
   span &nbsp
   span= book.title
   span= book.description
-  form(method='POST', action=`/user/delete/${book.id}`, enctype='application/x-www-form-urlencoded')
+  form(method='POST', action=`/book/delete/${book.id}`, enctype='application/x-www-form-urlencoded')
    input(type='hidden', name='_method', value='DELETE')
    button.btn.btn-primary(type='submit') Delete
 
   button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal') edit 
   #myModal.modal
       .modal-dialog
-       form.modal-content(role='form', method='POST', action=`/user/edit/${book.id}`)
+       form.modal-content(role='form', method='POST', action=`/book/edit/${book.id}`)
         .modal-header
          h4.modal-title Modal Heading
          button.close(type='button', data-dismiss='modal') &times;

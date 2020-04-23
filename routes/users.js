@@ -5,56 +5,53 @@ const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync("db.json");
 const db = low(adapter);
 // Set some defaults
-db.defaults({ books: []}).write();
+db.defaults({ users: []}).write();
  // for parsing routerlication/x-www-form-urlencoded
 
 const shortid = require("shortid");
-var books = db.get("books");
+var users = db.get("users");
 
 
-router.get("/", (request, response) => {
-  response.send("I love CodersX");
-});
-router.get("/books", function(req, res) {
+router.get("/", function(req, res) {
 
-  res.render("index", { books: books.value()});
+  res.render("users/index", { users: users.value()});
 
 });
 router.get("/search", function(req, res) {
   var q = req.query.q;
-  var matched = books.value().filter(function(book) {
-    return book.title.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+  var matched = users.value().filter(function(user) {
+    return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
   });
-  res.render("index", { books: matched });
+  res.render("users/index", { users: matched });
 });
 router.get("/create", function(req, res) {
-  res.render("create");
+  res.render("users/create");
 });
 router.post("/create", function(req, res) {
   req.body.id = shortid.generate();
 
-  books.push(req.body).write();
-  return res.redirect("/user/books");
+  users.push(req.body).write();
+  return res.redirect("/user");
 });
 router.get("/view/:id", function(req, res) {
   var id = req.params.id;
-  var book = books.find({ id: id }).value();
-  return res.render("view", { book });
+  var user = users.find({ id: id }).value();
+  return res.render("users/view", { user });
 });
 router.delete("/delete/:id", function(req, res) {
   var id = req.params.id;
-  books
+  users
     .remove({ id: id })
     .write();
-  return res.redirect("/user/books");
+  return res.redirect("/user");
 });
 router.put('/edit/:id', function(req,res){
   var id=req.params.id;
-  books
+  users
   .find({ id:id})
-  .assign({ title: req.body.title})
+  .assign({ name: req.body.name})
   .write();
-  return res.redirect("/user/books");
+  return res.redirect("/user");
 })
 
 

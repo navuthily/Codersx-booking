@@ -5,13 +5,13 @@ head
   link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')
 // Button to Open the Modal
 h1= message
-form(action='/user/search' method='get')
+form(action='/book/search' method='get')
   input(type='text' name='q')
   button Search
   ul
    each book in books
     li= book.title
-     a(href=`/user/view/${book.id}`) view
+     a(href=`/book/view/${book.id}`) view
 
 script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
 script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
