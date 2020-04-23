@@ -31,6 +31,9 @@ app.use(
 app.use('/user', routerUser)
 app.use('/book',routerBook)
 app.use('/transaction', routerTransaction)
+app.get('/home', function (req,res) {
+  res.render('home');
+  })
 app.listen(port, () => {
   console.log("Server listening on port " + port);
 });

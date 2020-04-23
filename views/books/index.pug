@@ -8,9 +8,9 @@ h1= message
 form(action='/book/search' method='get')
   input(type='text' name='q')
   button Search
-  ul
+  ul.list-group.list-group-flush
    each book in books
-    li= book.title
+    li.list-group-item= book.title
      a(href=`/book/view/${book.id}`) view
 
 script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')

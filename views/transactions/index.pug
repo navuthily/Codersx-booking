@@ -1,8 +1,14 @@
+doctype html
+head
+  meta(charset='utf-8')
+  title Modal Example
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')
+// Button to Open the Modal
 h2 Transaction
 
-ul
+ ul.list-group.list-group-flush
   each transaction in transactions
-    li
+    li.list-group-item.disabled
       span Book title: 
       span= transaction.bookTitle
       br
@@ -18,13 +24,13 @@ ul
    
 
 form(method="POST")
-  lable Book title:
+  lable.form-control-sm Book title:
   select(name="bookId")
     each book in books
       option(value=book.id)= book.title
-  lable User name:
+  lable.form-control-sm User name:
   select(name="userId")
     each user in users
       option(value=user.id)= user.name
-  br
-  button create
+  span &nbsp    
+  button.btn.btn-primary create

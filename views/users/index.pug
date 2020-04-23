@@ -8,10 +8,13 @@ h1= message
 form(action='/user/search' method='get')
   input(type='text' name='q')
   button Search
-  ul
-   each user in users
-    li= user.name
-     a(href=`/user/view/${user.id}`) view
+  .row
+   .col-4
+     ul.list-group
+      each user in users
+        li.list-group-item= user.name
+         a(href=`/user/view/${user.id}`) view
+   .col-8     
 
 script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
 script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
