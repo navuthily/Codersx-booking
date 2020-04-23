@@ -1,7 +1,6 @@
-html
-  head
-    title= title
-  body
+extends ../layout.pug
+
+block cdn-bootstrap
     h1= message
     form(action='/user/create' method='post')
      input(type='text' name='name' placeholder="name")

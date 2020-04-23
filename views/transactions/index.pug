@@ -1,10 +1,8 @@
-doctype html
-head
-  meta(charset='utf-8')
-  title Modal Example
-  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')
-// Button to Open the Modal
-h2 Transaction
+
+extends ../layout.pug
+
+block cdn-bootstrap
+ h2 Transaction
 
  ul.list-group.list-group-flush
   each transaction in transactions
@@ -23,7 +21,7 @@ h2 Transaction
     
    
 
-form(method="POST")
+ form(method="POST")
   lable.form-control-sm Book title:
   select(name="bookId")
     each book in books
