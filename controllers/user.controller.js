@@ -30,7 +30,7 @@ const postCreate= function(req, res) {
     errors.push('Name is required!')
   }
   if(req.body.name.length>5){
-    errors.push('Name is so long!')
+    errors.push('Tên không hợp lệ.')
   }
   if(errors.length){
    return  res.render("users/create",{errors:errors,
