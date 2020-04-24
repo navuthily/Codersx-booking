@@ -6,14 +6,17 @@
 const express = require("express");
 const app = express();
 const port=4000;
+const cookieParser = require('cookie-parser')
 var routerUser=require('./routes/users')
 var routerBook=require('./routes/books')
 var routerTransaction=require('./routes/transaction')
 const bodyParser = require("body-parser")
+
 app.use(express.static("public"));
 app.use(express.static("files"));
 app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false })); 
+app.use(cookieParser())
 app.set("view engine", "pug");
 app.set("views", "./views/");
 const methodOverride = require("method-override");
@@ -28,10 +31,16 @@ app.use(
     }
   })
 );
-app.use('/user', routerUser)
-app.use('/book',routerBook)
-app.use('/transaction', routerTransaction)
-app.get('/home', function (req,res) {
+const {countCookieRequest}=require('./middleware/cookies.middleware')
+app.get("/",countCookieRequest,(req, res,next) => {
+  res.cookie('user-id', 12345)
+  res.render("index.pug");
+});
+
+app.use('/user',countCookieRequest, routerUser)
+app.use('/book',countCookieRequest,routerBook)
+app.use('/transaction',countCookieRequest, routerTransaction)
+app.get('/home',countCookieRequest, function (req,res) {
   res.render('home');
   })
 app.listen(port, () => {

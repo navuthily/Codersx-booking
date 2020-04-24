@@ -9,7 +9,7 @@ db.defaults({
 }).write();
 var transactions = db.get("transactions").value();
 var transactComplete= (req, res, next) => {
-  if (transactions.find(element => element.id==req.params)) {
+  if (transactions.find(element => element.id==req.params.id)) {
     return next();
   }
   return res.redirect('/home');
