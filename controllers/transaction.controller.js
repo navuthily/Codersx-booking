@@ -4,8 +4,10 @@ const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync("db.json");
 const db = low(adapter);
 // Set some defaults
-db.defaults({ transactions: []}).write();
-var getTransaction=(req, res) => {
+db.defaults({
+  transactions: []
+}).write();
+var getTransaction = (req, res) => {
   let books = db.get("books").value();
   let users = db.get("users").value();
   let transactions = db.get("transactions").value();
@@ -13,37 +15,47 @@ var getTransaction=(req, res) => {
   let changeTrans = transactions.map(trans => {
     let book = books.find(book => book.id === trans.bookId);
     let user = users.find(user => user.id === trans.userId);
-    return { bookTitle: book.title, userName: user.name ,isComplete:trans.isComplete};
+    return {
+      bookTitle: book.title,
+      userName: user.name,
+      isComplete: trans.isComplete,
+      id: trans.id
+    };
   });
 
   res.render("transactions/index", {
     transactions: changeTrans,
     books,
     users,
-  //  status:transactions
+    //  status:transactions
   });
 };
-const postTransaction=(req, res) => {
+const postTransaction = (req, res) => {
   req.body.id = shortid.generate();
 
   db.get("transactions")
     // .push(req.body)
     .push({
       id: req.body.id,
-      userId:req.body.userId,
+      userId: req.body.userId,
       bookId: req.body.bookId,
       isComplete: false
     })
     .write();
   res.redirect("back");
 };
-const finish=function(req, res) {
+const finish = function (req, res) {
   var id = req.params.id;
-//  var transaction = transactions.find({ id: id }).value();
-  return res.render("transactions/finish", );
+  let transactions = db.get("transactions");
+
+  var transaction = transactions.find({
+    id: id
+  }).value();
+    return res.render("transactions/finish", );
+  
 };
 module.exports = {
-getTransaction,
-postTransaction,
-finish
+  getTransaction,
+  postTransaction,
+  finish
 };

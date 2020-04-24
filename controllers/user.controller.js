@@ -25,9 +25,23 @@ const getCreate= function(req, res) {
 };
 const postCreate= function(req, res) {
   req.body.id = shortid.generate();
+  var errors=[];
+  if(!req.body.name){
+    errors.push('Name is required!')
+  }
+  if(req.body.name.length>5){
+    errors.push('Name is so long!')
+  }
+  if(errors.length){
+   return  res.render("users/create",{errors:errors,
+    values:req.body
+    });
+  }
 
+  else{
   users.push(req.body).write();
   return res.redirect("/user");
+}
 };
 const viewDetailUser= function(req, res) {
   var id = req.params.id;

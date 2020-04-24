@@ -3,8 +3,8 @@ extends ../layout.pug
 block cdn-bootstrap
     h1= message
     form(action='/book/create' method='post')
-     input(type='text' name='title' placeholder="title")
-     input(type='text' name='description' placeholder="description")
+     input(type='text' name='title' placeholder="title" value=values ? values.name="")
+     input(type='text' name='description' placeholder="description" value=values ? values.name="")
      button Add
     
      

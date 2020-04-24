@@ -2,8 +2,10 @@ extends ../layout.pug
 
 block cdn-bootstrap
     h1= message
+    if errors
+      .alert.alert-danger= errors
     form(action='/user/create' method='post')
-     input(type='text' name='name' placeholder="name")
+     input(type='text' name='name' placeholder="name" )
      button Add
     
      
