@@ -9,13 +9,14 @@ const db = low(adapter);
 // Set some defaults
 db.defaults({ transactions: []}).write();
  // for parsing routerlication/x-www-form-urlencoded
-const{
+const {
 getTransaction,
 postTransaction,
 finish
 }=require('../controllers/transaction.controller')
+const {transactComplete}=require('../middleware/transaction.middleware')
 router.get("/",getTransaction );
 
 router.post("/", postTransaction);
-router.get('/:id/finish',finish)
+router.get('/:id/finish',transactComplete,finish)
 module.exports = router;

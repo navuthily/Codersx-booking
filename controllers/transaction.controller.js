@@ -7,6 +7,7 @@ const db = low(adapter);
 db.defaults({
   transactions: []
 }).write();
+
 var getTransaction = (req, res) => {
   let books = db.get("books").value();
   let users = db.get("users").value();
