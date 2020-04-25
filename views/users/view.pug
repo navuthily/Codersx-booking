@@ -3,7 +3,7 @@ extends ../layout.pug
 block cdn-bootstrap
  p user:
    span &nbsp
-   span= user.name
+   span= user.username
    form(method='POST', action=`/user/delete/${user.id}`, enctype='application/x-www-form-urlencoded')
     input(type='hidden', name='_method', value='DELETE')
     button.btn.btn-primary(type='submit') Delete
@@ -13,13 +13,13 @@ block cdn-bootstrap
        .modal-dialog
         form.modal-content(role='form', method='POST', action=`/user/edit/${user.id}`)
          .modal-header
-          h4.modal-title Modal Heading
+          h4.modal-title Update username
           button.close(type='button', data-dismiss='modal') &times;
     
          .modal-body 
            .form-group
-             label Title
-             input.form-control(type='text', name='name', placeholder='')
+             label  username
+             input.form-control(type='text', name='username', placeholder='')
 
          .modal-footer
           button.btn.btn-secondary(type='button', data-dismiss='modal') Close

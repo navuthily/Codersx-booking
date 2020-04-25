@@ -9,7 +9,7 @@ block cdn-bootstrap
     .col-4
       ul.list-group
        each user in users
-         li.list-group-item= user.name
+         li.list-group-item= user.username
           a(href=`/user/view/${user.id}`) view
     .col-8     
 

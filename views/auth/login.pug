@@ -1,0 +1,66 @@
+head
+  meta(charset='utf-8')
+  meta(name='robots', content='noindex, nofollow')
+  title Nana CodersX
+  link(id="favicon", rel="icon", href="https://cdn.glitch.com/1eeeaa03-4c95-4acc-925a-ac933fed2ce6%2FcodersX.png?v=1587615408346")
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css', rel='stylesheet')
+  style(type='text/css').
+    body {
+    margin: 0;
+    padding: 0;
+    background-color: #17a2b8;
+    height: 100vh;
+    }
+    #login .container #login-row #login-column #login-box {
+    margin-top: 120px;
+    max-width: 600px;
+    height: 320px;
+    border: 1px solid #9C9C9C;
+    background-color: #EAEAEA;
+    }
+    #login .container #login-row #login-column #login-box #login-form {
+    padding: 20px;
+    }
+    #login .container #login-row #login-column #login-box #login-form #register-link {
+    margin-top: -85px;
+    }
+  script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+  script(src='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js')
+  script(type='text/javascript').
+    window.alert = function(){};
+    var defaultCSS = document.getElementById('bootstrap-css');
+    function changeCSS(css){
+    if(css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="'+ css +'" type="text/css" />');
+    else $('head > link').filter(':first').replaceWith(defaultCSS);
+    }
+    $( document ).ready(function() {
+    var iframe_height = parseInt($('html').height());
+    window.parent.postMessage( iframe_height, 'https://bootsnipp.com');
+    });
+#login
+  h3.text-center.text-white.pt-5 Login form
+  .container
+    #login-row.row.justify-content-center.align-items-center
+      #login-column.col-md-6
+        #login-box.col-md-12
+          form#login-form.form(action='login', method='post')
+            h3.text-center.text-info Login
+            .form-group
+              label.text-info.text-danger.error-field(for='username', data-location='email') Email:
+              br
+              input#email.form-control(type='text', name='email')
+            .form-group
+              label.text-info.text-danger.error-field(for='password', data-location='password') Password:
+              br
+              input#password.form-control(type='password', name='password')
+            .form-group
+              label.text-info(for='remember-me')
+                span Remember me
+                span
+                  input#remember-me(name='remember-me', type='checkbox')
+              br
+              button.btn.btn-primary(type='submit')  Log in 
+            #register-link.text-right
+              a.text-info(href='/user/create', action='/user/create') Register here
+#eJOY__extension_root(style='all: unset;')

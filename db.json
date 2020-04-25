@@ -18,58 +18,12 @@
   ],
   "users": [
     {
-      "name": "Vũ Thị Ly Na",
-      "id": "wzb81Elom"
-    },
-    {
-      "name": "Vũ Thị Ly Na",
-      "id": "e_BPMiEqG"
-    },
-    {
-      "name": "",
-      "id": "KfhLiBdew"
-    },
-    {
-      "name": "nav",
-      "id": "eaeAXvgpX"
-    },
-    {
-      "name": "",
-      "id": "EFIfEVWoe"
-    },
-    {
-      "name": "navu",
-      "id": "RAmDuCEv8"
-    },
-    {
-      "name": "Vũ Thị Ly Na",
-      "id": "-2z4m4_ET"
+      "username": "Kyoto22",
+      "email": "vuthilyna304@gmail.com",
+      "password": "1",
+      "passwordConfirmation": "1",
+      "id": "yKj5d6vqU"
     }
   ],
-  "transactions": [
-    {
-      "id": "KuaUIl-Zs",
-      "userId": "wzb81Elom",
-      "bookId": "oPv2qyF3y",
-      "isComplete": true
-    },
-    {
-      "id": "XEFD3Cr2f",
-      "userId": "wzb81Elom",
-      "bookId": "oPv2qyF3y",
-      "isComplete": true
-    },
-    {
-      "id": "aiH3o6-WI",
-      "userId": "wzb81Elom",
-      "bookId": "oPv2qyF3y",
-      "isComplete": false
-    },
-    {
-      "id": "EsO_OR8_6",
-      "userId": "wzb81Elom",
-      "bookId": "oPv2qyF3y",
-      "isComplete": false
-    }
-  ]
+  "transactions": []
 }

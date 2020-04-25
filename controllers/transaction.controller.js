@@ -18,7 +18,7 @@ var getTransaction = (req, res) => {
     let user = users.find(user => user.id === trans.userId);
     return {
       bookTitle: book.title,
-      userName: user.name,
+      userName: user.username,
       isComplete: trans.isComplete,
       id: trans.id
     };

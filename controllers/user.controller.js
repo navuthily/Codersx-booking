@@ -26,10 +26,10 @@ const getCreate= function(req, res) {
 const postCreate= function(req, res) {
   req.body.id = shortid.generate();
   var errors=[];
-  if(!req.body.name){
+  if(!req.body.username){
     errors.push('Name is required!')
   }
-  if(req.body.name.length>5){
+  if(req.body.username.length>10){
     errors.push('Tên không hợp lệ.')
   }
   if(errors.length){
@@ -43,6 +43,7 @@ const postCreate= function(req, res) {
   return res.redirect("/user");
 }
 };
+
 const viewDetailUser= function(req, res) {
   var id = req.params.id;
   var user = users.find({ id: id }).value();
@@ -59,7 +60,7 @@ const editUser=function(req,res){
   var id=req.params.id;
   users
   .find({ id:id})
-  .assign({ name: req.body.name})
+  .assign({ username: req.body.username})
   .write();
   return res.redirect("/user");
 };

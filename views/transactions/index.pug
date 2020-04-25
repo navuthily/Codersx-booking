@@ -28,6 +28,6 @@ block cdn-bootstrap
   lable.form-control-sm User name:
   select(name="userId")
     each user in users
-      option(value=user.id)= user.name
+      option(value=user.id)= user.username
   span &nbsp    
   button.btn.btn-primary create

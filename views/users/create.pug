@@ -1,12 +1,209 @@
-extends ../layout.pug
 
-block cdn-bootstrap
-    h1= message
-    if errors
-      .alert.alert-danger= errors
-    form(action='/user/create' method='post')
-     input(type='text' name='name' placeholder="name" )
-     button Add
-    
-     
+head
+  // Required meta tags always come first
+  meta(charset='utf-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  meta(http-equiv='x-ua-compatible', content='ie=edge')
+  title Material Design Bootstrap Template 
+  // Font Awesome
+  link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.6.3/css/all.css')
+  // Bootstrap core CSS
+  link(href='https://mdbootstrap.com/previews/docs/latest/css/bootstrap.min.css', rel='stylesheet')
+  // Material Design Bootstrap
+  link(href='https://mdbootstrap.com/previews/docs/latest/css/mdb.min.css', rel='stylesheet')
+  style.
+    /* Required for full background image */
+    html,
+    body,
+    header,
+    .view {
+    height: 100%;
+    }
+    @media (max-width: 740px) {
+    html,
+    body,
+    header,
+    .view {
+    height: 1000px;
+    }
+    }
+    @media (min-width: 800px) and (max-width: 850px) {
+    html,
+    body,
+    header,
+    .view {
+    height: 650px;
+    }
+    }
+    .top-nav-collapse {
+    background-color: #3f51b5 !important;
+    }
+    .navbar:not(.top-nav-collapse) {
+    background: transparent !important;
+    }
+    @media (max-width: 991px) {
+    .navbar:not(.top-nav-collapse) {
+    background: #3f51b5 !important;
+    }
+    }
+    .rgba-gradient {
+    background: -webkit-linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%);
+    background: -webkit-gradient(linear, 45deg, from(rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%));
+    background: linear-gradient(to 45deg, rgba(0, 0, 0, 0.7), rgba(72, 15, 144, 0.4) 100%);
+    }
+    .card {
+    background-color: rgba(126, 123, 215, 0.2);
+    }
+    .md-form label {
+    color: #ffffff;
+    }
+    h6 {
+    line-height: 1.7;
+    }
+  style(type='text/css').
+    /* Chart.js */
+    @-webkit-keyframes chartjs-render-animation {
+    from {
+    opacity: 0.99
+    }
+    to {
+    opacity: 1
+    }
+    }
+    @keyframes chartjs-render-animation {
+    from {
+    opacity: 0.99
+    }
+    to {
+    opacity: 1
+    }
+    }
+    .chartjs-render-monitor {
+    -webkit-animation: chartjs-render-animation 0.001s;
+    animation: chartjs-render-animation 0.001s;
+    }
+// Main navigation
+header
+ 
+  // Navbar
+  nav.navbar.navbar-expand-lg.navbar-dark.fixed-top.scrolling-navbar
+    .container
+      a.navbar-brand(href='#')
+        strong MDB
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent-7', aria-controls='navbarSupportedContent-7', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent-7.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link.waves-effect.waves-light(href='#')
+              | Home
+              span.sr-only (current)
+          li.nav-item
+            a.nav-link.waves-effect.waves-light(href='#') Link
+          li.nav-item
+            a.nav-link.waves-effect.waves-light(href='#') Profile
+        form.form-inline
+          .md-form.my-0
+            input.form-control.mr-sm-2(type='text', placeholder='Search', aria-label='Search')
+  // Navbar
+  // Full Page Intro
+  .view(style="background-image: url('http://mdbootstrap.com/img/Photos/Others/images/91.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;")
+    // Mask & flexbox options
+    .mask.rgba-gradient.d-flex.justify-content-center.align-items-center
+      // Content
+      .container
+        // Grid row
+        .row.mt-5
+          // Grid column
+          .col-md-6.mb-5.mt-md-0.mt-5.white-text.text-center.text-md-left
+            h1.h1-responsive.font-weight-bold.wow.fadeInLeft(data-wow-delay='0.3s', style='visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;')
+              | Sign up
+              | right now!
+            hr.hr-light.wow.fadeInLeft(data-wow-delay='0.3s', style='visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;')
+            h6.mb-3.wow.fadeInLeft(data-wow-delay='0.3s', style='visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;')
+              | Lorem
+              | ipsum dolor sit amet, consectetur adipisicing elit. Rem repellendus quasi fuga
+              | nesciunt dolorum nulla magnam veniam sapiente, fugiat! Commodi sequi non animi ea
+              | dolor molestiae, quisquam iste, maiores. Nulla.
+            a.btn.btn-outline-white.wow.fadeInLeft.waves-effect.waves-light(data-wow-delay='0.3s', style='visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;')
+              | Learn
+              | more
+          // Grid column
+          // Grid column
+          .col-md-6.col-xl-5.mb-4
+           
+            if errors
+              .alert.alert-danger= errors
+  
+            form.pb-2(action='/user/create', method='POST')
+              .card.wow.fadeInRight(data-wow-delay='0.3s', style='visibility: visible; animation-name: fadeInRight; animation-delay: 0.3s;')
+                .card-body
+                  // Header
+                  .text-center
+                    h3.white-text
+                      i.fas.fa-user.white-text
+                    hr.hr-light
+                  // Body
+                  .md-form
+                    i.fas.fa-user.prefix.white-text
+                    input.white-text.form-control.form2(type='text', name='username')
+                    label.error-field(for='form2', data-location='username')  name
+                  .md-form
+                    i.fas.fa-envelope.prefix.white-text
+                    input.white-text.form-control.form3(type='email', name='email')
+                    label.error-field(for='form3', data-location='email') email
+                  .md-form
+                    i.fas.fa-lock.prefix.white-text
+                    input.white-text.form-control.form4(type='password', name='password')
+                    label.error-field(for='form4', data-location='password') password
+                  .md-form
+                    i.fas.fa-lock.prefix.white-text
+                    input.white-text.form-control.form5(type='password', name='passwordConfirmation')
+                    label.error-field(for='form5', data-location='passwordConfirmation') confirm password
+                  .text-center.mt-4
+                    button.btn.btn-indigo.waves-effect.waves-light Sign up
+                    hr.hr-light.mb-3.mt-4
+                    .inline-ul.text-center.d-flex.justify-content-center
+                      a.p-2.m-2.tw-ic
+                        i.fab.fa-twitter.white-text
+                      a.p-2.m-2.li-ic
+                        i.fab.fa-linkedin-in.white-text  
+                      a.p-2.m-2.ins-ic
+                        i.fab.fa-instagram.white-text  
+              // /.Form
+          // Grid column
+        // Grid row
+      // Content
+    // Mask & flexbox options
+  // Full Page Intro
+// Main navigation
+// Main Layout
+main
+  .container
+    // Grid row
+    .row.py-5
+      // Grid column
+      .col-md-12.text-center
+        p
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+          | labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+          | laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+          | voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+          | non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      // Grid column
+    // Grid row
+// Main Layout
+// SCRIPTS
+// JQuery
+script(type='text/javascript', src='https://mdbootstrap.com/previews/docs/latest/js/jquery-3.3.1.min.js')
+// Tooltips
+script(type='text/javascript', src='https://mdbootstrap.com/previews/docs/latest/js/popper.min.js')
+// Bootstrap core JavaScript
+script(type='text/javascript', src='https://mdbootstrap.com/previews/docs/latest/js/bootstrap.min.js')
+// MDB core JavaScript
+script(type='text/javascript', src='https://mdbootstrap.com/previews/docs/latest/js/mdb.min.js')
+.hiddendiv.common
+script.
+  new WOW().init();
+#eJOY__extension_root(style='all: unset;')
     
