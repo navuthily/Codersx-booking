@@ -11,12 +11,15 @@ db.defaults({ transactions: []}).write();
  // for parsing routerlication/x-www-form-urlencoded
 const {
 getTransaction,
-postTransaction,
+getCreateTransaction,
+postCreateTransaction,
 finish
 }=require('../controllers/transaction.controller')
 const {transactComplete}=require('../middleware/transaction.middleware')
-router.get("/",getTransaction );
+const {isAdmin,isNotAdmin}=require('../middleware/isAdmin.middleware')
 
-router.post("/", postTransaction);
+router.get("/",getTransaction );
+router.get("/create",isAdmin,getCreateTransaction );
+router.post("/create", isAdmin,postCreateTransaction);
 router.get('/:id/finish',transactComplete,finish)
 module.exports = router;

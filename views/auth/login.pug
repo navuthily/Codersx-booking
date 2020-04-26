@@ -46,6 +46,9 @@ head
         #login-box.col-md-12
           form#login-form.form(action='login', method='post')
             h3.text-center.text-info Login
+            if errors
+              .alert.alert-danger= errors
+  
             .form-group
               label.text-info.text-danger.error-field(for='username', data-location='email') Email:
               br

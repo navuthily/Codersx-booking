@@ -28,10 +28,20 @@ var getTransaction = (req, res) => {
     transactions: changeTrans,
     books,
     users,
+  });
+};
+
+var getCreateTransaction = (req, res) => {
+  let books = db.get("books").value();
+  let users = db.get("users").value();
+  res.render("transactions/create", {
+
+    books,
+    users,
     //  status:transactions
   });
 };
-const postTransaction = (req, res) => {
+const postCreateTransaction = (req, res) => {
   req.body.id = shortid.generate();
 
   db.get("transactions")
@@ -43,7 +53,7 @@ const postTransaction = (req, res) => {
       isComplete: false
     })
     .write();
-  res.redirect("back");
+  res.redirect("/transaction");
 };
 const finish = function (req, res) {
   var id = req.params.id;
@@ -57,6 +67,7 @@ const finish = function (req, res) {
 };
 module.exports = {
   getTransaction,
-  postTransaction,
+  getCreateTransaction,
+  postCreateTransaction,
   finish
 };
