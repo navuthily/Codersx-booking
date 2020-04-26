@@ -4,7 +4,9 @@ const FileSync = require("lowdb/adapters/FileSync");
 const adapter = new FileSync("db.json");
 const db = low(adapter);
 const bcrypt = require('bcrypt');
-var countWrongPassword=0;
+var countWrongPassword = 0;
+require('dotenv').config();
+const sgMail = require('@sendgrid/mail');
 // Set some defaults
 db.defaults({
   users: []
@@ -56,25 +58,40 @@ const postLogin = function (req, res) {
   var user = users.find({
     email: email
   }).value();
-  var errors =[];
+  var errors = [];
   if (!user) {
     errors.push('user does not exist')
   }
- 
+
   if (typeof user !== 'undefined') {
     bcrypt.compare(req.body.password, user.password, (err, result) => {
       if (result) {
-        res.cookie('userId', user.id,
-        {
-          signed:true
+        res.cookie('userId', user.id, {
+          signed: true
         });
         return res.redirect('/home');
       }
       if (user.password !== password) {
         errors.push('wrong password.')
-        countWrongPassword +=1;
+        countWrongPassword += 1;
         console.log(countWrongPassword);
-        if(countWrongPassword>2){
+        if (countWrongPassword > 1) {
+        
+         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+         sgMail.send({
+            to: 'vuthilyna21@gmail.com',
+            from: 'vuthilyna304@gmail.com',
+            subject:  'Wrong password',
+            text: 'You submit wrong password a lot of times. Please restart try again next time ',
+            html: '<strong>You submit wrong password a lot of times. Please restart try again next time. If you forget password let click this link to change : <a href="#">change password</a></strong>',
+          })
+          .then(() => {
+            console.log("email sent");
+          })
+          .catch((error) => {
+            console.error('Canot send email', error);
+          });
+         
           return res.redirect('/notification')
         }
       }
@@ -83,7 +100,7 @@ const postLogin = function (req, res) {
           errors: errors,
           values: req.body
         });
-      } 
+      }
       return res.redirect('/login');
     });
   }
