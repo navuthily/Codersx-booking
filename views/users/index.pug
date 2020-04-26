@@ -2,6 +2,8 @@ extends ../layout.pug
 
 block cdn-bootstrap
  h1= message
+ if user 
+  p= user.username
  form(action='/user/search' method='get')
    input(type='text' name='q')
    button Search

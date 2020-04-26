@@ -17,7 +17,7 @@ app.use(express.static("public"));
 app.use(express.static("files"));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: false })); 
-app.use(cookieParser())
+app.use(cookieParser('sdfghjuytr2011'))
 app.set("view engine", "pug");
 app.set("views", "./views/");
 const methodOverride = require("method-override");

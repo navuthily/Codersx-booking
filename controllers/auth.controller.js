@@ -64,7 +64,10 @@ const postLogin = function (req, res) {
   if (typeof user !== 'undefined') {
     bcrypt.compare(req.body.password, user.password, (err, result) => {
       if (result) {
-        res.cookie('userId', user.id);
+        res.cookie('userId', user.id,
+        {
+          signed:true
+        });
         return res.redirect('/home');
       }
       if (user.password !== password) {

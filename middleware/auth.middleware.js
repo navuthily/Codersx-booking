@@ -8,15 +8,15 @@ db.defaults({ users: []}).write();
 
 const shortid = require("shortid");
 const userAuth = (req, res, next) => {
-  if (!req.cookies.userId) {
+  if (!req.signedCookies.userId) {
    return  res.redirect('/login');
  
   }
-  if (req.cookies.userId) {
+  if (req.signedCookies.userId) {
     return next();
   
    }
-  var user=db.get('users').find({id:req.cookies.userId}).value();
+  var user=db.get('users').find({id:req.signedCookies.userId}).value();
   if(!user){
    return  res.redirect('/login');
   }
@@ -25,7 +25,7 @@ const userAuth = (req, res, next) => {
 
 
 const userIsNotAuth = (req, res, next) => {
-  if (!req.cookies.userId) {
+  if (!req.signedCookies.userId) {
     return next();
   }
   return res.redirect('/home');
