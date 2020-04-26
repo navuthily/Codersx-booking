@@ -9,8 +9,12 @@ db.defaults({ books: []}).write();
 const shortid = require("shortid");
 var books = db.get("books");
 const getBook= function(req, res) {
-
-  res.render("books/index", { books: books.value()});
+  var perPage = 8;
+  var page = parseInt(req.query.page) || 1;
+  var start = (page -1) * perPage;
+  var end = page *perPage;
+ 
+  res.render("books/index", { books: books.value().slice(start,end)});
 
 };
 const getSearch=function(req, res) {
