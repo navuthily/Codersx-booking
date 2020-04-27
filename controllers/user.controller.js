@@ -67,6 +67,10 @@ const editUser=function(req,res){
   .write();
   return res.redirect("/home");
 };
+const getEdit=function(req,res){
+  var user = users.find({ id: req.signedCookies.userId}).value();
+res.render('users/editProfile',{user})
+};
 
 module.exports={
   getUser,
@@ -75,5 +79,6 @@ module.exports={
   postCreate,
   viewDetailUser,
   deleteUser,
-  editUser
+  editUser,
+  getEdit
 }

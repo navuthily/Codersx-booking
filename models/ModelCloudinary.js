@@ -10,7 +10,7 @@ var self = module.exports = {
     uploadSingle: (file) => {
         return new Promise(resolve => {
             cloudinary.uploader.upload(file, {
-                    folder: 'products'
+                    folder: 'avatar'
                 })
                 .then(result => {
                     if (result) {
