@@ -41,7 +41,8 @@ const postRegister = function (req, res) {
           username: req.body.username,
           email: req.body.email,
           password: hashPassword,
-          wrongLoginCount: countWrongPassword
+          wrongLoginCount: countWrongPassword,
+          avatar: 'default.jpg'
         }).write();
       return res.redirect("/login");
     });

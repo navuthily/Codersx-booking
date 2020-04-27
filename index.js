@@ -11,6 +11,7 @@ var routerUser=require('./routes/users')
 var routerBook=require('./routes/books')
 var routerTransaction=require('./routes/transaction')
 var routerAuth=require('./routes/auth')
+var routerHome=require('./routes/home')
 const bodyParser = require("body-parser")
 const {userAuth,userIsNotAuth}=require('./middleware/auth.middleware')
 app.use(express.static("public"));
@@ -44,9 +45,7 @@ app.use('/',countCookieRequest,routerAuth)
 app.use('/user',userAuth,countCookieRequest, routerUser)
 app.use('/book',userAuth,countCookieRequest,routerBook)
 app.use('/transaction',userAuth,countCookieRequest, routerTransaction)
-app.get('/home',userAuth,countCookieRequest, function (req,res) {
-  res.render('home');
-  })
+app.use('/home',countCookieRequest,routerAuth,routerHome)
 app.listen(port, () => {
   console.log("Server listening on port " + port);
 });

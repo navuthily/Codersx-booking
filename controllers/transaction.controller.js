@@ -7,12 +7,15 @@ const db = low(adapter);
 db.defaults({
   transactions: []
 }).write();
+db.defaults({
+  users: []
+}).write();
 
 var getTransaction = (req, res) => {
   let books = db.get("books").value();
   let users = db.get("users").value();
   let transactions = db.get("transactions").value();
-
+  
   let changeTrans = transactions.map(trans => {
     let book = books.find(book => book.id === trans.bookId);
     let user = users.find(user => user.id === trans.userId);
@@ -20,7 +23,8 @@ var getTransaction = (req, res) => {
       bookTitle: book.title,
       userName: user.username,
       isComplete: trans.isComplete,
-      id: trans.id
+      id: trans.id,
+
     };
   });
 
@@ -35,7 +39,6 @@ var getCreateTransaction = (req, res) => {
   let books = db.get("books").value();
   let users = db.get("users").value();
   res.render("transactions/create", {
-
     books,
     users,
     //  status:transactions

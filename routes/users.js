@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-const{
+const {
   getUser,
   getSearch,
   getCreate,
@@ -8,13 +8,13 @@ const{
   viewDetailUser,
   deleteUser,
   editUser
-}=require('../controllers/user.controller')
+} = require('../controllers/user.controller')
 router.get("/", getUser);
-router.get("/search",getSearch );
-router.get("/create",getCreate);
-router.post("/create",postCreate);
-router.get("/view/:id",viewDetailUser);
-router.delete("/delete/:id",deleteUser);
+router.get("/search", getSearch);
+router.get("/create", getCreate);
+router.post("/create", postCreate);
+router.get("/view/:id", viewDetailUser);
+router.delete("/delete/:id", deleteUser);
 router.put('/edit/:id', editUser)
 
 

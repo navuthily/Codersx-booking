@@ -49,15 +49,29 @@
       "title": "Accountant II",
       "description": "Extraoc musc inj repair",
       "id": "FnlkfNnbRjhq"
+    },
+    {
+      "title": "Học js new",
+      "description": "Fork from https://javascript.info/async-await so okee",
+      "id": "m1JjkYj6c"
     }
   ],
   "users": [
     {
       "id": "cPPtNDhMU",
-      "username": "Ly Na",
+      "username": "Kyoto22",
       "email": "vuthilyna304@gmail.com",
       "password": "$2b$10$1OzzwAvDUmPifJPZmjabV.yy8x3RMBuC.oxFGYrG9XybTCnUQv0vO",
-      "wrongLoginCount": 0
+      "wrongLoginCount": 0,
+      "avatar": "Screenshot_3.png"
+    },
+    {
+      "id": "FniE4Fs1C",
+      "username": "quang pu",
+      "email": "quang@gmail.com",
+      "password": "$2b$10$qzZT9L7eSyp2JP8giP4/Lu53VJxM96qeqyiVyaKCjxuGbvcX51BNu",
+      "wrongLoginCount": 0,
+      "avatar": "default.jpg"
     }
   ],
   "admins": [
@@ -66,7 +80,8 @@
       "name": "Ly Na",
       "email": "vuthilyna304@gmail.com",
       "password": "$2b$10$1OzzwAvDUmPifJPZmjabV.yy8x3RMBuC.oxFGYrG9XybTCnUQv0vO",
-      "wrongLoginCount": 0
+      "wrongLoginCount": 0,
+      "avatar": "default.jpg"
     }
   ],
   "transactions": [

@@ -9,8 +9,8 @@ db.defaults({ users: []}).write();
 const shortid = require("shortid");
 var users = db.get("users");
 const getUser=function(req, res) {
-
-  res.render("users/index", { users: users.value()});
+  var user =users.find({id:req.signedCookies.userId}).value();
+  res.render("users/index", { users: users.value(),user:user});
 
 };
 const getSearch=function(req, res) {
@@ -18,10 +18,12 @@ const getSearch=function(req, res) {
   var matched = users.value().filter(function(user) {
     return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
   });
-  res.render("users/index", { users: matched });
+  var user =db.get('users').find({id:req.signedCookies.userId}).value();
+  res.render("users/index", { users: matched,user:user });
 };
 const getCreate= function(req, res) {
-  res.render("users/create");
+  var user =db.get('users').find({id:req.signedCookies.userId}).value();
+  res.render("users/create",{user});
 };
 const postCreate= function(req, res) {
   req.body.id = shortid.generate();
@@ -57,12 +59,13 @@ const deleteUser= function(req, res) {
   return res.redirect("/user");
 };
 const editUser=function(req,res){
-  var id=req.params.id;
+
   users
-  .find({ id:id})
-  .assign({ username: req.body.username})
+  .find({ id:req.signedCookies.userId})
+  .assign({ username: req.body.username,
+  avatar: req.body.avatar})
   .write();
-  return res.redirect("/user");
+  return res.redirect("/home");
 };
 
 module.exports={

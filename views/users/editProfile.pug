@@ -1,14 +1,11 @@
 extends ../layout.pug
 
 block cdn-bootstrap
+
  p user:
    span &nbsp
    span= user.username
-   form(method='POST', action=`/user/delete/${user.id}`, enctype='application/x-www-form-urlencoded')
-    input(type='hidden', name='_method', value='DELETE')
-    button.btn.btn-primary(type='submit') Delete
-
-   button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal') edit 
+   button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal') Edit profile
    #myModal.modal
        .modal-dialog
         form.modal-content(role='form', method='POST', action=`/user/edit/${user.id}`)
@@ -20,6 +17,8 @@ block cdn-bootstrap
            .form-group
              label  username
              input.form-control(type='text', name='username', placeholder='')
+           .form-group
+             label(for='form2')  Add file image :
              input#avatar.white-text.form-control(type='file', name='avatar')
          .modal-footer
           button.btn.btn-secondary(type='button', data-dismiss='modal') Close
