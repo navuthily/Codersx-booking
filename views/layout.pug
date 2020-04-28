@@ -26,7 +26,7 @@ html
           li.nav-item
             a.nav-link(href='/transaction') transaction
       if(user)
-        img.avatar(alt='Card image cap', src=`/avatar/${user.avatar}`)
+        img.avatar(alt='Card image cap', src=`${user.avatar}`)
         a(href='/user/edit')= user.username
 
     block cdn-bootstrap
