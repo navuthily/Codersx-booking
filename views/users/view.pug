@@ -4,7 +4,7 @@ block cdn-bootstrap
  p user:
    span &nbsp
    span= user.username
-   form(method='POST', action=`/user/delete/${user.id}`, enctype='application/x-www-form-urlencoded')
+   form(method='POST', action=`/user/delete/${user.id}`)
     input(type='hidden', name='_method', value='DELETE')
     button.btn.btn-primary(type='submit') Delete
 
@@ -20,7 +20,7 @@ block cdn-bootstrap
            .form-group
              label  username
              input.form-control(type='text', name='username', placeholder='')
-             input#avatar.white-text.form-control(type='file', name='avatar')
+             input#avatar.form-control(type='file', name='avatar')
          .modal-footer
           button.btn.btn-secondary(type='button', data-dismiss='modal') Close
           input(type='hidden', name='_method', value='PUT')

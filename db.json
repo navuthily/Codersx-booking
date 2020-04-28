@@ -59,19 +59,11 @@
   "users": [
     {
       "id": "cPPtNDhMU",
-      "username": "Kyoto22",
+      "username": "Ly Na",
       "email": "vuthilyna304@gmail.com",
       "password": "$2b$10$1OzzwAvDUmPifJPZmjabV.yy8x3RMBuC.oxFGYrG9XybTCnUQv0vO",
       "wrongLoginCount": 0,
-      "avatar": "Screenshot_7.png"
-    },
-    {
-      "id": "FniE4Fs1C",
-      "username": "quang pu",
-      "email": "quang@gmail.com",
-      "password": "$2b$10$qzZT9L7eSyp2JP8giP4/Lu53VJxM96qeqyiVyaKCjxuGbvcX51BNu",
-      "wrongLoginCount": 0,
-      "avatar": "default.jpg"
+      "avatar": "Screenshot_4.png"
     }
   ],
   "admins": [

@@ -20,7 +20,7 @@ router.get("/create", getCreate);
 router.post("/create", postCreate);
 router.get("/view/:id", viewDetailUser);
 router.delete("/delete/:id", deleteUser);
-router.put('/edit/:id', uploadMulter.single('avatar'),editUser)
+router.put('/edit/:id',editUser)
 router.get('/edit', getEdit)
-router.put('/edit', uploadMulter.single('path_img'),editUser)
+router.put('/edit',editUser)
 module.exports = router;
