@@ -58,16 +58,21 @@ const deleteUser= function(req, res) {
     .write();
   return res.redirect("/user");
 };
-const editUser=function(req,res){
+const editUser = function(req,res){
+ console.log(req.file);
 
+ console.log(req.body.username);
+ const {
+  originalname,
+} = req.file;
+console.log(originalname);
   users
   .find({ id:req.signedCookies.userId})
-  .assign({ username: req.body.username,
-  avatar: req.body.avatar})
+  .assign({username: req.body.username, avatar: originalname})
   .write();
   return res.redirect("/home");
 };
-const getEdit=function(req,res){
+const getEdit = function(req,res){
   var user = users.find({ id: req.signedCookies.userId}).value();
 res.render('users/editProfile',{user})
 };

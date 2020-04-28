@@ -11,7 +11,7 @@ block cdn-bootstrap
    button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal') edit 
    #myModal.modal
        .modal-dialog
-        form.modal-content(role='form', method='POST', action=`/user/edit/${user.id}`)
+        form.modal-content(role='form', method='POST', action=`/user/edit/${user.id}`, enctype="multipart/form-data")
          .modal-header
           h4.modal-title Update username
           button.close(type='button', data-dismiss='modal') &times;
@@ -23,7 +23,7 @@ block cdn-bootstrap
              input#avatar.form-control(type='file', name='avatar')
          .modal-footer
           button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-          input(type='hidden', name='_method', value='PUT')
+          input(type='hidden', name='_method', value='POST')
           button.btn.btn-primary(type='submit') Update
  script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
