@@ -88,5 +88,17 @@
       "bookId": "oPv2qyF3y",
       "isComplete": false
     }
+  ],
+  "sessions": [
+    {
+      "id": "I8m6ZJVW-"
+    },
+    {
+      "id": "Ad3oaBnkL",
+      "cart": {
+        "oPv2qyF3y": 2,
+        "23T4zsdET": 3
+      }
+    }
   ]
 }

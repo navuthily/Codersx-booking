@@ -9,7 +9,7 @@ block cdn-bootstrap
     each book in books
      li.list-group-item= book.title
       a(href=`/book/view/${book.id}`) view
-
+      a(href='/cart/add/' + book.id) Thuê
  script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')

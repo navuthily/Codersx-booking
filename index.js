@@ -1,12 +1,10 @@
-// server.js
-// where your node app starts
 
-// we've started you off with Express (https://expressjs.com/)
-// but feel free to use whatever libraries or frameworks you'd like through `package.json`.
 const express = require("express");
 const app = express();
 const port=4000;
+require('dotenv').config();
 const cookieParser = require('cookie-parser')
+var routerCart = require('./routes/cart.route')
 var routerUser=require('./routes/users')
 var routerBook=require('./routes/books')
 var routerTransaction=require('./routes/transaction')
@@ -18,7 +16,11 @@ app.use(express.static("public"));
 app.use(express.static("files"));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: false })); 
-app.use(cookieParser('sdfghjuytr2011'))
+app.use(cookieParser(process.env.SESSION_SECRET))
+var sessionMiddleware =require('./middleware/session.middleware')
+app.use(sessionMiddleware);
+app.use('/cart',routerCart)
+
 app.set("view engine", "pug");
 app.set("views", "./views/");
 const methodOverride = require("method-override");
