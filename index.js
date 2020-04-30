@@ -3,6 +3,17 @@ const express = require("express");
 const app = express();
 const port=4000;
 require('dotenv').config();
+const mongoose = require('mongoose');
+
+mongoose
+.connect(process.env.MONGO_URL, {
+useUnifiedTopology: true,
+useNewUrlParser: true,
+})
+.then(() => console.log('DB Connected!'))
+.catch(err => {
+console.log(`DB Connection Error: ${err.message}`);
+});
 const cookieParser = require('cookie-parser')
 var routerCart = require('./routes/cart.route')
 var routerUser=require('./routes/users')
