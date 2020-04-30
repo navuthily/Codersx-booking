@@ -4,7 +4,7 @@ module.exports = function (req, res, next) {
   if (req.signedCookies.sessionId == undefined) {
     var sessionId = shortid.generate();
     res.cookie('sessionId', sessionId, {
-      signed: true //sign cookies ddeer baor maatj hown
+      signed: true
     })
     db.get('sessions').push({
       id: sessionId

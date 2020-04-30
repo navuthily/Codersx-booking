@@ -37,7 +37,7 @@ app.use(
 );
 const {countCookieRequest}=require('./middleware/cookies.middleware')
 app.get("/",countCookieRequest,(req, res,next) => {
-  res.cookie('user-id', 12345)
+ 
   res.render("index.pug");
 });
 app.get('/notification', (req,res)=>{
