@@ -13,8 +13,18 @@ const getBook= function(req, res) {
   var page = parseInt(req.query.page) || 1;
   var start = (page -1) * perPage;
   var end = page *perPage;
+
   var user=db.get('users').find({id:req.signedCookies.userId}).value();
-  res.render("books/index", { books: books.value().slice(start,end), user:user});
+  var sessions = db.get("sessions").value();
+  console.log(sessions[sessions.length - 1])
+  var a = sessions[sessions.length - 1];
+  var q=a.cart;
+      var y= Object.values(q);
+      var sum =0;
+      for(let i=0;i<y.length;i++){
+        sum+=y[i];
+      }
+  res.render("books/index", { books: books.value().slice(start,end), user:user, sum:sum});
 
 };
 const getSearch=function(req, res) {

@@ -4,6 +4,7 @@ html
     title Nana CodersX
     link(id="favicon", rel="icon", href="https://cdn.glitch.com/1eeeaa03-4c95-4acc-925a-ac933fed2ce6%2FcodersX.png?v=1587615408346")
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://pro.fontawesome.com/releases/v5.10.0/css/all.css', integrity='sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p', crossorigin='anonymous')
     link(rel="stylesheet", href="/style.css")
     block scripts
       script(src='/jquery.js')
@@ -25,6 +26,8 @@ html
             a.nav-link(href='/book') book
           li.nav-item
             a.nav-link(href='/transaction') transaction
+      i.fas.fa-shopping-cart
+      span= sum
       if(user)
         img.avatar(alt='Card image cap', src=`${user.avatar}`)
         a(href='/user/edit')= user.username
