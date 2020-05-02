@@ -1,7 +1,7 @@
 
 const express = require("express");
 const app = express();
-const port=4000;
+const port=3000;
 require('dotenv').config();
 const mongoose = require('mongoose');
 
@@ -55,7 +55,7 @@ app.get('/notification', (req,res)=>{
   res.render('notification', {title:'You submitted wrong password a lot of time. Please restart try again next time '});
 })
 app.use('/',countCookieRequest,routerAuth)
-app.use('/user',userAuth,countCookieRequest, routerUser)
+app.use('/user',userAuth,countCookieRequest,routerUser)
 app.use('/book',countCookieRequest,routerBook)
 app.use('/transaction',userAuth,countCookieRequest, routerTransaction)
 app.use('/home',countCookieRequest,routerAuth,routerHome)
