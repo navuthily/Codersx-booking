@@ -1,16 +1,10 @@
-const low = require("lowdb");
-const FileSync = require("lowdb/adapters/FileSync");
-const adapter = new FileSync("db.json");
-const db = low(adapter);
-// Set some defaults
-db.defaults({ admins: []}).write();
-db.defaults({ users: []}).write();
- // for parsing routerlication/x-www-form-urlencoded
-const shortid = require("shortid");
+var User = require('../models/user.model');
+var Book  = require('../models/book.model');
+var Admin = require('../models/admin.model');
 const isAdmin= (req, res, next) => {
   var a=req.signedCookies.userId;
   console.log(a+'cdvfbghn');
-  var admin=db.get('admins').find({id:a}).value();
+  var admin=Admin.find({id:a}).value();
   if(!admin){
    return  res.redirect('/home');
   }

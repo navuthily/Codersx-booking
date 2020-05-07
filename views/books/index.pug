@@ -3,18 +3,21 @@ extends ../layout.pug
 block cdn-bootstrap
  h1= message
  form(action='/book/search' method='get')
-   input(type='text' name='q')
+   input(type='text' name='search')
    button Search
  
    .container.nana
      h3.panel-title  List books
+     if(noMatch !== underfined)
+       p= noMatch
      each book in books 
       .card(style='width: 18rem;')
-       img.card-img-top(alt='Card image cap', src='http://t0.gstatic.com/images?q=tbn:ANd9GcSBKMPzDVbtF5CbW9hO2myo0Z_RegBgZ9CGh9F04QLGhtyDZgGL3HdSs9VVIXNVvftmbvC5SkuNCs6GxRpeLrM', height='200px', width='150px')
+       img.card-img-top(alt='Card image cap', src=`${book.cover}`, height='200px', width='150px')
        .card-body
         h5.card-title  Name :
          span= book.title
         p.card-text  Price : 
+         span= book.price
         a.btn.btn-primary(href=`/book/view/${book.id}`) View more
         a(href='/cart/add/' + book.id) Thuê
 

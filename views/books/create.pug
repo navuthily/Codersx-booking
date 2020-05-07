@@ -1,11 +1,9 @@
 extends ../layout.pug
-
 block cdn-bootstrap
-    h1= message
-    form(action='/book/create' method='post')
-     input(type='text' name='title' placeholder="title")
-     input(type='text' name='description' placeholder="description")
-     button Add
-    
-     
-    
+  h1= message
+  form(action='/book/create' method='post' enctype="multipart/form-data")
+    input(type='text' name='title' placeholder="title")
+    input(type='text' name='description' placeholder="description")
+    input(type='file' name='cover' placeholder="cover")
+    input(type='number' name='price' placeholder="price")
+    button Add

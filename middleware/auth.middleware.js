@@ -1,34 +1,21 @@
-const low = require("lowdb");
-const FileSync = require("lowdb/adapters/FileSync");
-const adapter = new FileSync("db.json");
-const db = low(adapter);
-// Set some defaults
-db.defaults({ users: []}).write();
- // for parsing routerlication/x-www-form-urlencoded
-
-const shortid = require("shortid");
+var User = require('../models/user.model');
 const userAuth = (req, res, next) => {
   if (!req.signedCookies.userId) {
    return  res.redirect('/login');
- 
   }
   if (req.signedCookies.userId) {
     return next();
-  
    }
-  var user=db.get('users').find({id:req.signedCookies.userId}).value();
+  var user=User.find({id:req.signedCookies.userId});
   if(!user){
    return  res.redirect('/login');
   }
   res.redirect('/home');
 };
-
-
 const userIsNotAuth = (req, res, next) => {
   if (!req.signedCookies.userId) {
     return next();
   }
   return res.redirect('/home');
 };
-
 module.exports = { userAuth, userIsNotAuth };

@@ -1,18 +1,18 @@
 extends ../layout.pug
 
 block cdn-bootstrap
+ p= sum
  p Book:
    span &nbsp
    span= book.title
    span= book.description
    form(method='POST', action=`/book/delete/${book.id}`, enctype='application/x-www-form-urlencoded')
-    input(type='hidden', name='_method', value='DELETE')
+    input(type='hidden', name='_method', value='delete')
     button.btn.btn-primary(type='submit') Delete
-
    button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal') edit 
    #myModal.modal
        .modal-dialog
-        form.modal-content(role='form', method='POST', action=`/book/edit/${book.id}`)
+        form.modal-content(role='form', method='POST', action=`/book/edit/${book.id}` , enctype="multipart/form-data")
          .modal-header
           h4.modal-title Modal Heading
           button.close(type='button', data-dismiss='modal') &times;
@@ -21,6 +21,17 @@ block cdn-bootstrap
            .form-group
              label Title
              input.form-control(type='text', name='title', placeholder='')
+           .form-group
+             label Description
+             input.form-control(type='text', name='description', placeholder='')
+           .form-group
+             label Price
+             input.form-control(type='text', name='price', placeholder='')
+           .form-group
+             label Cover
+             input.form-control(type='file', name='cover', placeholder='')
+                        
+
 
          .modal-footer
           button.btn.btn-secondary(type='button', data-dismiss='modal') Close

@@ -1,4 +1,6 @@
-var db = require('../db')
+var Book = require('../models/book.model')
+var User = require('../models/user.model')
+var Session = require('../models/sessions.model')
 module.exports.addToCart = function (req, res, next) {
   var bookId = req.params.bookId;
   var sessionId = req.signedCookies.sessionId;
@@ -7,17 +9,16 @@ module.exports.addToCart = function (req, res, next) {
     return;
   }
   var count =
-  db.get('sessions')
+    Session
     .find({
-     id: sessionId
+      id: sessionId
     })
-    .get('cart.' + bookId,0)
-    .value();
-  db.get('sessions')
+    .get('cart.' + bookId, 0);
+
+  Session
     .find({
-     id: sessionId
+      id: sessionId
     })
-    .set('cart.' + bookId,count + 1)
-    .write();
-    res.redirect('/book')
+    .set('cart.' + bookId, count + 1);
+  res.redirect('/book')
 }

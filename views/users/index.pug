@@ -5,7 +5,7 @@ block cdn-bootstrap
  if user 
   p= user.username
  form(action='/user/search' method='get')
-   input(type='text' name='q')
+   input(type='text' name='search')
    button Search
    .row
     .col-4
@@ -14,7 +14,8 @@ block cdn-bootstrap
          li.list-group-item= user.username
           a(href=`/user/view/${user.id}`) view
     .col-8     
-
+ if(noMatch !== underfined)
+  p= noMatch
  script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')

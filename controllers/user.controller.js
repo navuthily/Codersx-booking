@@ -1,7 +1,3 @@
-const low = require("lowdb");
-const FileSync = require("lowdb/adapters/FileSync");
-const adapter = new FileSync("db.json");
-const db = low(adapter);
 const fs = require("fs");
 var cloudinary = require('cloudinary').v2
 require('dotenv').config();
@@ -10,122 +6,6 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
-// Set some defaults
-db.defaults({
-  users: []
-}).write();
-// // for parsing routerlication/x-www-form-urlencoded
-
-const shortid = require("shortid");
-var users = db.get("users");
-// const getUser = function (req, res) {
-//   var user = users.find({
-//     id: req.signedCookies.userId
-//   }).value();
-//   res.render("users/index", {
-//     users: users.value(),
-//     user: user
-//   });
-
-// };
-
-// const getCreate = function (req, res) {
-//   var user = db.get('users').find({
-//     id: req.signedCookies.userId
-//   }).value();
-//   res.render("users/create", {
-//     user
-//   });
-// };
-// const postCreate = function (req, res) {
-//   req.body.id = shortid.generate();
-//   var errors = [];
-//   if (!req.body.username) {
-//     errors.push('Name is required!')
-//   }
-//   if (req.body.username.length > 10) {
-//     errors.push('Tên không hợp lệ.')
-//   }
-//   if (errors.length) {
-//     return res.render("users/create", {
-//       errors: errors,
-//       values: req.body
-//     });
-//   } else {
-//     users.push(req.body).write();
-//     return res.redirect("/user");
-//   }
-// };
-
-// const viewDetailUser = function (req, res) {
-//   var id = req.params.id;
-//   var user = users.find({
-//     id: id
-//   }).value();
-//   return res.render("users/view", {
-//     user
-//   });
-// };
-// const deleteUser = function (req, res) {
-//   var id = req.params.id;
-//   users
-//     .remove({
-//       id: id
-//     })
-//     .write();
-//   return res.redirect("/user");
-// };
-// const editUser = async function (req, res) {
-//   console.log(req.file);
-//   console.log(req.file.path);
-//   console.log(req.body.username);
-
-// const file = req.file.path;
-
-// // console.log('body', req.body)
-// const path = await cloudinary.uploader
-//   .upload(file)
-//   .then(result => result.url)
-//   .catch(error => console.log("erro:::>", error));
-
-
-//   const {
-//     originalname,
-//   } = req.file;
-//   console.log(originalname);
-//   users
-//     .find({
-//       id: req.signedCookies.userId
-//     })
-//     .assign({
-//       username: req.body.username,
-//       avatar: path
-//     })
-//     .write();
-//     if(req.file){
-//       fs.unlinkSync(req.file.path);
-//     }
-//   return res.redirect("/home");
-// };
-// const getEdit = function (req, res) {
-//   var user = users.find({
-//     id: req.signedCookies.userId
-//   }).value();
-//   res.render('users/editProfile', {
-//     user
-//   })
-// };
-
-// module.exports = {
-//   getUser,
-//   getSearch,
-//   getCreate,
-//   postCreate,
-//   viewDetailUser,
-//   deleteUser,
-//   editUser,
-//   getEdit
-// }
 var User = require('../models/user.model')
 const getUser = function (req, res) {
   User.find().then(function (users) {
@@ -134,38 +14,111 @@ const getUser = function (req, res) {
     });
   })
 }
-// const getSearch = function (req, res) {
-//     var q = req.query.q;
-//     var user = db.get('users').find({
-//       id: req.signedCookies.userId
-//     }).value();
-//     var matched = users.value().filter(function (user) {
-//       return user.username.toLowerCase().indexOf(q.toLowerCase()) !== -1;
-//     });
-//     res.render("users/index", {
-//       users: matched,
-//       user: user
-//     })
-//   }
-const getSearch = function (req, res) {
-  var q = req.query.q;
+const getSearch = function(req, res){
+ var user = User.find({id: req.signedCookies.userId});
+  var noMatch = null;
+  if(req.query.search) {
+      const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+      // Get all users from DB
+      User.find({username: regex}, function(err, allUsers){
+         if(err){
+             console.log(err);
+         } else {
+            if(allUsers.length < 1) {
+                noMatch = "No users match that query, please try again.";
+            }
+            res.render("users/index",{users:allUsers, noMatch: noMatch});
+         }
+      });
+  } else {
+      // Get all users from DB
+      User.find({}, function(err, allUsers){
+         if(err){
+             console.log(err);
+         } else {
+            res.render("users/index",{users:allUsers, noMatch: noMatch, user});
+         }
+      });
+  }
+};
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+const getCreate = function (req, res) {
+
+  res.render("users/create");
+};
+
+const postCreate = async function (req, res) {
+  const file = req.file.path;
+  console.log(file);
+  const path = await cloudinary.uploader
+    .upload(file)
+    .then(result => result.url)
+    .catch(error => console.log("erro:::>", error));
+
+  User.create({
+    username: req.body.username,
+    avatar: path,
+  });
+  if (req.file) {
+    fs.unlinkSync(req.file.path);
+  }
+  console.log(typeof (req.body.price));
+  return res.redirect("/user");
+};
+const viewDetailUser = function (req, res) {
+  var id = req.params.id;
   var user = User.find({
-    id: req.signedCookies.userId
+    id: id
   });
-  var matched = User.find({
-    username: q
+  return res.render("users/view", {
+    user
   });
-  res.render("users/index", {
-    users: matched,
-    user: user
-  })
-}
-    module.exports = {
-      getUser,
-      getSearch
-      //   getCreate,
-      //   postCreate,
-      //   viewDetailBook,
-      //   deleteBook,
-      //   editBook
+};
+
+const editUser = async function (req, res) {
+  var id = req.params.id;
+  const file = req.file.path;
+  console.log(file);
+  const path = await cloudinary.uploader
+    .upload(file)
+    .then(result => result.url)
+    .catch(error => console.log("erro:::>", error));
+  User.updateOne(id,
+    {
+      username: req.body.username,
+      avatar: path,
     }
+     ,
+    function (err, updatedCampground) {
+      if (err) {
+        res.redirect("/user");
+      } else {
+        //redirect somewhere(show page)
+        res.redirect("/user");
+      }
+      if (req.file) {
+        fs.unlinkSync(req.file.path);
+      }
+    });
+};
+
+var deleteUser = function (req, res) {
+  var id= req.params.id;
+  User.deleteOne({id}, function (err) {
+    if (err){
+      console.log(err);
+    }
+  });
+  res.redirect('/user');
+};
+module.exports = {
+  getUser,
+  getSearch,
+    getCreate,
+    postCreate,
+    viewDetailUser,
+    deleteUser,
+    editUser
+}

@@ -1,21 +1,12 @@
 const shortid = require("shortid");
-const low = require("lowdb");
-const FileSync = require("lowdb/adapters/FileSync");
-const adapter = new FileSync("db.json");
-const db = low(adapter);
-// Set some defaults
-db.defaults({
-  transactions: []
-}).write();
-db.defaults({
-  users: []
-}).write();
+const Transaction = require('../models/sessions.model')
 
+var Book = require('../models/book.model')
+var User = require('../models/user.model')
 var getTransaction = (req, res) => {
-  let books = db.get("books").value();
-  let users = db.get("users").value();
-  let transactions = db.get("transactions").value();
-  
+  let books = Book.find();
+  let users = User.find();
+  let transactions = Transaction.find();
   let changeTrans = transactions.map(trans => {
     let book = books.find(book => book.id === trans.bookId);
     let user = users.find(user => user.id === trans.userId);
@@ -36,8 +27,8 @@ var getTransaction = (req, res) => {
 };
 
 var getCreateTransaction = (req, res) => {
-  let books = db.get("books").value();
-  let users = db.get("users").value();
+ let books= Book.find();
+ let users =User.find();
   res.render("transactions/create", {
     books,
     users,
@@ -45,28 +36,24 @@ var getCreateTransaction = (req, res) => {
   });
 };
 const postCreateTransaction = (req, res) => {
+  
   req.body.id = shortid.generate();
-
-  db.get("transactions")
-    // .push(req.body)
-    .push({
-      id: req.body.id,
+  Transaction
+    .create({
+      id:req.body.id,
       userId: req.body.userId,
       bookId: req.body.bookId,
       isComplete: false
-    })
-    .write();
+    });
   res.redirect("/transaction");
 };
 const finish = function (req, res) {
   var id = req.params.id;
-  let transactions = db.get("transactions");
-
-  var transaction = transactions.find({
+  var transaction = Transaction.find({
     id: id
-  }).value();
-    return res.render("transactions/finish", );
-  
+  });
+  return res.render("transactions/finish", );
+
 };
 module.exports = {
   getTransaction,

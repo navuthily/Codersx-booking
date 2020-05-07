@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const userSchema = new mongoose.Schema({
-email: String,
-username: String,
-avatar:String,
-password:String
+const transactionSchema = new mongoose.Schema({
+  id: String,
+  userId: String,
+  bookId:String,
+  isComplete: Boolean
 });
-var User =mongoose.model('User', userSchema, 'user');
-module.exports =User;
+var Transaction =mongoose.model('Transaction', transactionSchema, 'transactions');
+module.exports =Transaction;

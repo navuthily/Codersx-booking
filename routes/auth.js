@@ -13,8 +13,4 @@ router.route('/register')
 router.route('/login')
     .get(getLogin)
     .post(postLogin);
-
-
-
-
 module.exports = router;

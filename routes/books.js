@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router();
 const{
   getBook,
+  create,
   getSearch,
   getCreate,
   postCreate,
@@ -9,13 +10,15 @@ const{
   deleteBook,
   editBook
 }=require('../controllers/book.controller')
+const {
+  uploadMulter,
+} = require('../models/multer');
 router.get("/",getBook);
-// router.get("/search", getSearch);
-// router.get("/create", getCreate);
-// router.post("/create", postCreate);
-// router.get("/view/:id", viewDetailBook);
-// router.delete("/delete/:id", deleteBook);
-// router.put('/edit/:id', editBook)
-
-
+router.post('/oke',create)
+router.get("/search", getSearch);
+router.get("/create", getCreate);
+router.post("/create",uploadMulter.single('cover'), postCreate);
+router.get("/view/:id", viewDetailBook);
+router.delete("/delete/:id", deleteBook);
+router.post('/edit/:id',uploadMulter.single('cover'), editBook)
 module.exports = router;

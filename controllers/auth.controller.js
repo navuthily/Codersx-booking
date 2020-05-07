@@ -1,20 +1,10 @@
-const low = require("lowdb");
+var User = require('../models/user.model');
 const saltRounds = 10;
-const FileSync = require("lowdb/adapters/FileSync");
-const adapter = new FileSync("db.json");
-const db = low(adapter);
 const bcrypt = require('bcrypt');
 var countWrongPassword = 0;
+const shortid = require("shortid");
 require('dotenv').config();
 const sgMail = require('@sendgrid/mail');
-// Set some defaults
-db.defaults({
-  users: []
-}).write();
-// for parsing routerlication/x-www-form-urlencoded
-
-const shortid = require("shortid");
-var users = db.get("users");
 const getRegister = function (req, res) {
   res.render("users/register");
 };
@@ -35,15 +25,15 @@ const postRegister = function (req, res) {
   } else {
 
     bcrypt.hash(req.body.password, saltRounds, async (err, hashPassword) => {
-      users
-        .push({
+      User
+        .create({
           id: req.body.id,
           username: req.body.username,
           email: req.body.email,
           password: hashPassword,
           wrongLoginCount: countWrongPassword,
           avatar: 'default.jpg'
-        }).write();
+        })
       return res.redirect("/login");
     });
   }
@@ -56,9 +46,10 @@ const getLogin = function (req, res) {
 const postLogin = function (req, res) {
   var email = req.body.email;
   var password = req.body.password;
-  var user = users.find({
+  var user = User.find({
     email: email
-  }).value();
+  });
+  
   var errors = [];
   if (!user) {
     errors.push('user does not exist')
@@ -77,10 +68,10 @@ const postLogin = function (req, res) {
         countWrongPassword += 1;
         console.log(countWrongPassword);
         if (countWrongPassword > 1) {
-        
+        console.log(req.body.email);
          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
          sgMail.send({
-            to: 'vuthilyna21@gmail.com',
+            to: `${req.body.email}`,
             from: 'vuthilyna304@gmail.com',
             subject:  'Wrong password',
             text: 'You submit wrong password a lot of times. Please restart try again next time ',
