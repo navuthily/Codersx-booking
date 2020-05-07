@@ -1,23 +1,3 @@
-// var Session = require('../models/sessions.model')
-// const shortid = require("shortid");
-// module.exports = function (req, res, next) {
-
-//   if (req.signedCookies.sessionId == undefined) {
-//     var sessionId = shortid.generate();
-//     console.log(sessionId)
-//     res.cookie('sessionId', sessionId, {
-//       maxAge: 24 * 3600 * 1000,
-//       signed: true
-//     })
-//     Session.create({
-//       id: sessionId
-//     });
-//   }
-//   next();
-// }
-
-
-
 const shortid = require("shortid");
 var Session = require('../models/sessions.model')
 module.exports = function (req, res, next) {

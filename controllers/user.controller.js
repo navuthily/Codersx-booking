@@ -9,38 +9,55 @@ cloudinary.config({
 var User = require('../models/user.model')
 const getUser = function (req, res) {
   User.find().then(function (users) {
-    res.render("users/index", {
-      users
-    });
+    User.findOne({ id: req.signedCookies.userId}).then(function (user) {
+      res.render("users/index", {
+        users,user
+      });
+      })
   })
 }
-const getSearch = function(req, res){
- var user = User.find({id: req.signedCookies.userId});
+// res.render("users/index", {
+//   users
+// });
+const getSearch = function (req, res) {
+  var user = User.find({
+    id: req.signedCookies.userId
+  });
   var noMatch = null;
-  if(req.query.search) {
-      const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-      // Get all users from DB
-      User.find({username: regex}, function(err, allUsers){
-         if(err){
-             console.log(err);
-         } else {
-            if(allUsers.length < 1) {
-                noMatch = "No users match that query, please try again.";
-            }
-            res.render("users/index",{users:allUsers, noMatch: noMatch});
-         }
-      });
+  if (req.query.search) {
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    // Get all users from DB
+    User.find({
+      username: regex
+    }, function (err, allUsers) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (allUsers.length < 1) {
+          noMatch = "No users match that query, please try again.";
+        }
+        res.render("users/index", {
+          users: allUsers,
+          noMatch: noMatch
+        });
+      }
+    });
   } else {
-      // Get all users from DB
-      User.find({}, function(err, allUsers){
-         if(err){
-             console.log(err);
-         } else {
-            res.render("users/index",{users:allUsers, noMatch: noMatch, user});
-         }
-      });
+    // Get all users from DB
+    User.find({}, function (err, allUsers) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("users/index", {
+          users: allUsers,
+          noMatch: noMatch,
+          user
+        });
+      }
+    });
   }
 };
+
 function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
@@ -85,12 +102,10 @@ const editUser = async function (req, res) {
     .upload(file)
     .then(result => result.url)
     .catch(error => console.log("erro:::>", error));
-  User.updateOne(id,
-    {
+  User.updateOne(id, {
       username: req.body.username,
       avatar: path,
-    }
-     ,
+    },
     function (err, updatedCampground) {
       if (err) {
         res.redirect("/user");
@@ -105,9 +120,11 @@ const editUser = async function (req, res) {
 };
 
 var deleteUser = function (req, res) {
-  var id= req.params.id;
-  User.deleteOne({id}, function (err) {
-    if (err){
+  var id = req.params.id;
+  User.deleteOne({
+    id
+  }, function (err) {
+    if (err) {
       console.log(err);
     }
   });
@@ -116,9 +133,9 @@ var deleteUser = function (req, res) {
 module.exports = {
   getUser,
   getSearch,
-    getCreate,
-    postCreate,
-    viewDetailUser,
-    deleteUser,
-    editUser
+  getCreate,
+  postCreate,
+  viewDetailUser,
+  deleteUser,
+  editUser
 }

@@ -5,7 +5,7 @@ module.exports.addToCart = function (req, res, next) {
   var bookId = req.params.bookId;
   var sessionId = req.signedCookies.sessionId;
   if (!sessionId) {
-    res.redirect('/products');
+    res.redirect('/home');
     return;
   }
   var count =

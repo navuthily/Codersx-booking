@@ -1,34 +1,47 @@
 const shortid = require("shortid");
-const Transaction = require('../models/sessions.model')
+const Transaction = require("../models/sessions.model");
 
-var Book = require('../models/book.model')
-var User = require('../models/user.model')
-var getTransaction = (req, res) => {
-  let books = Book.find();
-  let users = User.find();
-  let transactions = Transaction.find();
-  let changeTrans = transactions.map(trans => {
-    let book = books.find(book => book.id === trans.bookId);
-    let user = users.find(user => user.id === trans.userId);
-    return {
-      bookTitle: book.title,
-      userName: user.username,
-      isComplete: trans.isComplete,
-      id: trans.id,
+var Book = require("../models/book.model");
+var User = require("../models/user.model");
+// var getTransaction = (req, res) => {
 
-    };
-  });
+//   var userMain = User.findOne({
+//     id: req.signedCookies.userId,
+//   });
 
-  res.render("transactions/index", {
-    transactions: changeTrans,
-    books,
-    users,
-  });
-};
+//   let changeTrans = Transaction.find().map((trans) => {
+//     User.finOne({
+//       id: trans.userId
+//     }).then(function (user) {
+//       Book.findOne({
+//         id: trans.userId
+//       }).then(function (book) {
+        
+//         return (
+//           res.render("transactions/index", {
+//             transactions: changeTrans,
+//             user: userMain,
+//             bookTitle: book.title,
+//             userName: user.username,
+//             isComplete: trans.isComplete,
+//             id: trans.id,
+//           })
+
+//         )
+//       })
+//     })
+
+//   });
+//   if( changeTrans ==undefined){
+//    res.redirect('/home');
+//   }
+
+
+// };
 
 var getCreateTransaction = (req, res) => {
- let books= Book.find();
- let users =User.find();
+  let books = Book;
+  let users = User;
   res.render("transactions/create", {
     books,
     users,
@@ -36,28 +49,25 @@ var getCreateTransaction = (req, res) => {
   });
 };
 const postCreateTransaction = (req, res) => {
-  
   req.body.id = shortid.generate();
-  Transaction
-    .create({
-      id:req.body.id,
-      userId: req.body.userId,
-      bookId: req.body.bookId,
-      isComplete: false
-    });
+  Transaction.create({
+    id: req.body.id,
+    userId: req.body.userId,
+    bookId: req.body.bookId,
+    isComplete: false,
+  });
   res.redirect("/transaction");
 };
 const finish = function (req, res) {
   var id = req.params.id;
   var transaction = Transaction.find({
-    id: id
+    id: id,
   });
-  return res.render("transactions/finish", );
-
+  return res.render("transactions/finish");
 };
 module.exports = {
   getTransaction,
   getCreateTransaction,
   postCreateTransaction,
-  finish
+  finish,
 };

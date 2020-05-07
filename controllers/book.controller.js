@@ -10,20 +10,24 @@ cloudinary.config({
 
 var Book = require('../models/book.model')
 var User = require('../models/user.model')
+const Session = require('../models/sessions.model')
+
 const getBook = function (req, res) {
+
+  User.findOne({  id: req.signedCookies.userId}).then(function (user) {
+    
   Book.find().then(function (books) {
     res.render("books/index", {
-      books
+      books: books,
+      user: user
     });
   })
+  })
 }
-
 var create = async function (req, res) {
   var book = await Book.create(req.body);
   res.json(book);
 }
-
-
 const getSearch = function (req, res) {
   var noMatch = null;
   if (req.query.search) {
@@ -63,10 +67,13 @@ function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 const getCreate = function (req, res) {
-
-  res.render("books/create");
+  var user = User.find({
+    id: req.signedCookies.userId
+  });
+  res.render("books/create", {
+    user
+  });
 };
-
 const postCreate = async function (req, res) {
   req.body.id = shortid.generate();
   const file = req.file.path;
@@ -90,36 +97,36 @@ const postCreate = async function (req, res) {
   return res.redirect("/book");
 };
 const viewDetailBook = function (req, res) {
-  var id = req.params.id;
+  var user = User.find({
+    id: req.signedCookies.userId
+  });
   var book = Book.find({
-    id: id
+    id: req.params.id
   });
   return res.render("books/view", {
-    book
+    book:book,
+    user
   });
 };
-
 const editBook = async function (req, res) {
-  var id = req.params.id;
   const file = req.file.path;
   console.log(file);
   const path = await cloudinary.uploader
     .upload(file)
     .then(result => result.url)
     .catch(error => console.log("erro:::>", error));
-  Book.updateOne(id,
-    {
+  Book.updateOne({
+      id: req.params.id
+    }, {
       title: req.body.title,
       description: req.body.description,
       cover: path,
       price: req.body.price
-    }
-     ,
+    },
     function (err, updatedCampground) {
       if (err) {
         res.redirect("/book");
       } else {
-        //redirect somewhere(show page)
         res.redirect("/book");
       }
       if (req.file) {
@@ -127,11 +134,13 @@ const editBook = async function (req, res) {
       }
     });
 };
-
 var deleteBook = function (req, res) {
-  var id= req.params.id;
-  Book.deleteOne({id}, function (err) {
-    if (err){
+  var id = req.params.id;
+  console.log(req.params.id);
+  Book.deleteOne({
+    id: req.params.id
+  }, function (err) {
+    if (err) {
       console.log(err);
     }
   });
