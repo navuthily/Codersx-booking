@@ -4,7 +4,7 @@ var Admin = require('../models/admin.model');
 const isAdmin= (req, res, next) => {
   var a=req.signedCookies.userId;
   console.log(a+'cdvfbghn');
-  var admin=Admin.find({id:a}).value();
+  var admin=Admin.find({id:a});
   if(!admin){
    return  res.redirect('/home');
   }

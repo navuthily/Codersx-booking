@@ -1,5 +1,8 @@
 const fs = require("fs");
 var cloudinary = require('cloudinary').v2
+const shortid = require("shortid");
+const saltRounds = 10;
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -66,24 +69,37 @@ const getCreate = function (req, res) {
   res.render("users/create");
 };
 
-const postCreate = async function (req, res) {
-  const file = req.file.path;
-  console.log(file);
-  const path = await cloudinary.uploader
-    .upload(file)
-    .then(result => result.url)
-    .catch(error => console.log("erro:::>", error));
-
-  User.create({
-    username: req.body.username,
-    avatar: path,
-  });
-  if (req.file) {
-    fs.unlinkSync(req.file.path);
+const postCreate =  function (req, res) {
+  req.body.id = shortid.generate();
+  var errors = [];
+  if (!req.body.username) {
+    errors.push('Name is required!')
   }
-  console.log(typeof (req.body.price));
-  return res.redirect("/user");
+  if (req.body.username.length > 10) {
+    errors.push('Tên không hợp lệ.')
+  }
+  if (errors.length) {
+    return res.render("users/register", {
+      errors: errors,
+      values: req.body
+    });
+  } else {
+
+    bcrypt.hash(req.body.password, saltRounds, async (err, hashPassword) => {
+      User
+        .create({
+          id: req.body.id,
+          username: req.body.username,
+          email: req.body.email,
+          password: hashPassword,
+          avatar: 'default.jpg'
+        })
+      return res.redirect("/user");
+    });
+  }
+
 };
+
 const viewDetailUser = function (req, res) {
   var id = req.params.id;
   var user = User.find({

@@ -1,63 +1,80 @@
 const shortid = require("shortid");
-const Transaction = require("../models/sessions.model");
-
+require('dotenv').config();
+const Transaction = require("../models/transaction.model");
 var Book = require("../models/book.model");
 var User = require("../models/user.model");
-// var getTransaction = (req, res) => {
 
-//   var userMain = User.findOne({
-//     id: req.signedCookies.userId,
-//   });
-
-//   let changeTrans = Transaction.find().map((trans) => {
-//     User.finOne({
-//       id: trans.userId
-//     }).then(function (user) {
-//       Book.findOne({
-//         id: trans.userId
-//       }).then(function (book) {
-        
-//         return (
-//           res.render("transactions/index", {
-//             transactions: changeTrans,
-//             user: userMain,
-//             bookTitle: book.title,
-//             userName: user.username,
-//             isComplete: trans.isComplete,
-//             id: trans.id,
-//           })
-
-//         )
-//       })
-//     })
-
-//   });
-//   if( changeTrans ==undefined){
-//    res.redirect('/home');
-//   }
+console.log(typeof (Book.find()) + 'vbhnjkgfvcxweewsx');
+var getTransaction = async (req, res) => {
+  //cai nay phai lay title và tên người dùng từ 2 bảng kia
+  // transactions, phải lọc ra nè
+  let users = await User.find();
+  let transactions = await Transaction.find();
+  let books = await Book.find();
+  let changeTrans = transactions.map(trans => {
+    let book = books.find(book => book.id === trans.bookId);
+    let user = users.find(user => user.id === trans.userId);
+    
+ 
+    return {
+      bookTitle: book.title,
+      userName: user.username,
+      isComplete: trans.isComplete,
+      id: trans.id
 
 
-// };
-
-var getCreateTransaction = (req, res) => {
-  let books = Book;
-  let users = User;
-  res.render("transactions/create", {
-    books,
-    users,
-    //  status:transactions
+    };
   });
+
+  User.findOne({
+    id: req.signedCookies.userId
+  }).then(function (user) {
+    Transaction.find().then(function (transactions) {
+      User.find().then(function (users) {
+        Book.find().then(function (books) {
+          res.render("transactions/index", {
+            transactions: changeTrans,
+            books: books,
+            users: users,
+            user: user,
+
+          });
+        })
+      })
+    })
+
+  })
+
 };
-const postCreateTransaction = (req, res) => {
-  req.body.id = shortid.generate();
-  Transaction.create({
-    id: req.body.id,
+
+
+var getCreateTransaction = async (req, res) => {
+  User.findOne({
+    id: req.signedCookies.userId
+  }).then(function (user) {
+    User.find().then(function (users) {
+      Book.find().then(function (books) {
+        res.render("transactions/create", {
+          books: books,
+          users: users,
+          user: user,
+
+        });
+      })
+    })
+  })
+}
+const postCreateTransaction = async (req, res) => {
+  console.log(req.body.bookId + 'dcfgvhbjk');
+  console.log(req.body.userId + 'dcfgvhbjkfghjkl');
+  await Transaction.create({
+    id: shortid.generate(),
     userId: req.body.userId,
     bookId: req.body.bookId,
     isComplete: false,
-  });
+  })
   res.redirect("/transaction");
-};
+}
 const finish = function (req, res) {
   var id = req.params.id;
   var transaction = Transaction.find({

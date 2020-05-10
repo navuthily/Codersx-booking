@@ -18,8 +18,7 @@ const getBook = function (req, res) {
     
   Book.find().then(function (books) {
     res.render("books/index", {
-      books: books,
-      user: user
+     books, user
     });
   })
   })
@@ -97,16 +96,14 @@ const postCreate = async function (req, res) {
   return res.redirect("/book");
 };
 const viewDetailBook = function (req, res) {
-  var user = User.find({
-    id: req.signedCookies.userId
-  });
-  var book = Book.find({
-    id: req.params.id
-  });
-  return res.render("books/view", {
-    book:book,
-    user
-  });
+  User.findOne({  id: req.signedCookies.userId}).then(function (user) {
+    Book.findOne({id: req.params.id}).then(function (book) {
+      res.render("books/view", {
+        book: book,
+        user: user
+      });
+    })
+    })
 };
 const editBook = async function (req, res) {
   const file = req.file.path;
@@ -115,7 +112,7 @@ const editBook = async function (req, res) {
     .upload(file)
     .then(result => result.url)
     .catch(error => console.log("erro:::>", error));
-  Book.updateOne({
+   Book.findOneAndUpdate({
       id: req.params.id
     }, {
       title: req.body.title,
@@ -134,16 +131,9 @@ const editBook = async function (req, res) {
       }
     });
 };
-var deleteBook = function (req, res) {
-  var id = req.params.id;
-  console.log(req.params.id);
-  Book.deleteOne({
-    id: req.params.id
-  }, function (err) {
-    if (err) {
-      console.log(err);
-    }
-  });
+var deleteBook = async function (req, res) {
+  console.log(req.params.id+'xdcfvgbhnjkm')
+  await Book.findOneAndRemove({id:req.params.id})
   res.redirect('/book');
 };
 module.exports = {

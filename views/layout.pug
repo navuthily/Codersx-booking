@@ -27,13 +27,12 @@ html
           li.nav-item
             a.nav-link(href='/transaction') transaction
       i.fas.fa-shopping-cart
-      span= sum
+      span.text-primary Cart (#{count ? count : 0})
       if(user)
         img.avatar(alt='Card image cap', src=`${user.avatar}`)
         a(href='/user/edit')= user.username
 
     block cdn-bootstrap
-  
     block navbar   
     block content
   

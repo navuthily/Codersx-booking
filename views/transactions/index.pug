@@ -2,8 +2,10 @@
 extends ../layout.pug
 
 block cdn-bootstrap
-  h2 Transaction
 
+  h2 Transaction
+  button.btn.btn-secondary(type='button' ) 
+    a(href='/transaction/create') create transaction
   ul.list-group.list-group-flush
     each transaction in transactions
       li.list-group-item.disabled
@@ -18,3 +20,4 @@ block cdn-bootstrap
           a(href="#") Chua tra
         else
           a(href=`/transaction/${transaction.id}/finish`) Da tra 
+  

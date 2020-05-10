@@ -22,3 +22,30 @@ img{
   color:#9bc17b;
   font-size: 30px;
 }
+h2{
+ margin: 0 60% 0 0;
+  padding:  0 0 0 5%;
+  display: inline;
+}
+button a{
+  color:#fff;
+
+}
+button a:hover{
+  color: #fff;
+  text-decoration: none;
+}
+a{
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: none;
+}
+.delete>button{
+
+  margin-right:35% ;
+}
+.delete{
+  margin: 0 !important;
+  display: inline;
+}

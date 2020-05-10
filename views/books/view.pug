@@ -1,42 +1,47 @@
 extends ../layout.pug
 
 block cdn-bootstrap
- p= sum
- p Book:
-   span &nbsp
-   span= book.title
-   span= book.description
-   form(method='POST', action=`/book/delete/${book.id}`, enctype='application/x-www-form-urlencoded')
-    input(type='hidden', name='_method', value='delete')
-    button.btn.btn-primary(type='submit') Delete
-   button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal') edit 
-   #myModal.modal
-       .modal-dialog
-        form.modal-content(role='form', method='POST', action=`/book/edit/${book.id}` , enctype="multipart/form-data")
-         .modal-header
-          h4.modal-title Modal Heading
-          button.close(type='button', data-dismiss='modal') &times;
+   .container.nana
+
+      .card(style='width: 18rem;')
+       img.card-img-top(alt='Card image cap', src=`${book.cover}`, height='200px', width='150px')
+       .card-body
+        h5.card-title  Name :
+         span= book.title
+        p.card-text  Description : 
+         span= book.description       
+        p.card-text  Price : 
+         span= book.price
+        
+        form.delete(method='POST', action=`/book/delete/${book.id}`, enctype='application/x-www-form-urlencoded')
+         input(type='hidden', name='_method', value='DELETE')
+         button.btn.btn-primary(type='submit') Delete
+
+        button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal') edit 
+        #myModal.modal
+            .modal-dialog
+             form.modal-content(role='form', method='POST', action=`/book/edit/${book.id}` ,enctype="multipart/form-data")
+              .modal-header
+               h4.modal-title Modal Heading
+               button.close(type='button', data-dismiss='modal') &times;
     
-         .modal-body 
-           .form-group
-             label Title
-             input.form-control(type='text', name='title', placeholder='')
-           .form-group
-             label Description
-             input.form-control(type='text', name='description', placeholder='')
-           .form-group
-             label Price
-             input.form-control(type='text', name='price', placeholder='')
-           .form-group
-             label Cover
-             input.form-control(type='file', name='cover', placeholder='')
-                        
-
-
-         .modal-footer
-          button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-          input(type='hidden', name='_method', value='PUT')
-          button.btn.btn-primary(type='submit') Update
- script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
- script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
- script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
+              .modal-body 
+                .form-group
+                  label Title
+                  input.form-control(type='text', name='title', placeholder='')
+                .form-group
+                  label Description
+                  input.form-control(type='text', name='description', placeholder='')
+                .form-group
+                  label Price
+                  input.form-control(type='text', name='price', placeholder='')
+                .form-group
+                  label Cover
+                  input.form-control(type='file', name='cover', placeholder='')
+              .modal-footer
+                button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                input(type='hidden', name='_method', value='POST')
+                button.btn.btn-primary(type='submit') Update
+   script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
+   script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
+   script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
