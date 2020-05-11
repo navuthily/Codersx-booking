@@ -26,41 +26,49 @@ const getUser = function (req, res) {
 //   users
 // });
 const getSearch = function (req, res) {
-  var user = User.findOne({
+   var user = User.findOne({
     id: req.signedCookies.userId
   });
   var noMatch = null;
   if (req.query.search) {
     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
     // Get all users from DB
-    User.find({
-      username: regex
-    }, function (err, allUsers) {
-      if (err) {
-        console.log(err);
-      } else {
-        if (allUsers.length < 1) {
-          noMatch = "No users match that query, please try again.";
+    User.findOne({
+      id: req.signedCookies.userId
+    }).then(function (user) {
+      User.find({
+        username: regex
+      }, function (err, allUsers) {
+        if (err) {
+          console.log(err);
+        } else {
+          if (allUsers.length < 1) {
+            noMatch = "No users match that query, please try again.";
+          }
+          res.render("users/index", {
+            users: allUsers,
+            noMatch: noMatch,
+            user 
+          });
         }
-        res.render("users/index", {
-          users: allUsers,
-          noMatch: noMatch
-        });
-      }
+      });
     });
+   
   } else {
     // Get all users from DB
-    User.find({}, function (err, allUsers) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render("users/index", {
-          users: allUsers,
-          noMatch: noMatch,
-          user
-        });
-      }
-    });
+    User.find({id:req.signedCookies.userId}).then(function(user ){
+      User.find({}, function (err, allUsers) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("users/index", {
+            users: allUsers,
+            noMatch: noMatch,
+            user
+          });
+        }
+      });
+    })
   }
 };
 

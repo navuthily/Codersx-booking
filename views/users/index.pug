@@ -9,9 +9,9 @@ html
     block scripts
       script(src='/jquery.js')
   body
-
+   .compo 
     nav.navbar.navbar-expand-lg.navbar-light(style='background-color: #e3f2fd;')
-      a.navbar-brand(href='#') Navbar
+      img.logo(src='/assets/img/logo@256.png')
       button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
         span.navbar-toggler-icon
       #navbarNav.collapse.navbar-collapse
@@ -27,11 +27,10 @@ html
           li.nav-item
             a.nav-link(href='/transaction') transaction
       i.fas.fa-shopping-cart
-      span.text-primary Cart (#{count ? count : 0})
+        span.text-primary.badge.badge-info (#{count ? count : 0})
       if(user)
         img.avatar(alt='Card image cap', src=`${user.avatar}`)
         a(href='/user/editprofile')= user.username
-
     h1= message
     form.search-form(action='/user/search' method='get')
      input(type='text' name='search' placeholder='Search user ...')

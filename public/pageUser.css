@@ -1,23 +1,78 @@
-body{
-  background-image: url('/assets/img/river.jpg');
+body {
+  overflow: hidden;
+  color:#292829 !important;
+  
+}
+.compo {
+  background-image: url('/assets/img/anhdep.jpg');
   background-repeat: no-repeat;
-  background-size: cover;
+
   background-position: center center;
-}
-.search-form{
-  margin: 30px 30px 20px 20px;
+  background-attachment: fixed;
+
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: hsla(0, 0%, 100%, 0.50);
+  background-blend-mode: overlay;
 
 }
 
+.search-form {
+  margin: 50px 37% 20px;
+  font-size: 21px;
+  background-color: transparent;
+}
+.search-form input{
+  background-color: transparent;
+}
+.search-form button{
+  background-color: transparent;
+}
 
-.item-user{
+.list-group{
+  background-color: transparent;
+  margin: auto;
+}
+.item-user {
+  display: flex;
   width: 80%;
   padding: 15px;
-  margin: 15px;
+  margin: 15px; 
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
 }
-.item-user > a{
+
+.item-user>a {
   margin: 0 0 0 70%;
- 
+ background-color: transparent;
 
 }
+a{
+  color:#292829;
+}
+.logo{
+  width: 10%;
+}
+.navbar-brand{
+  font-size: 10px;
+}
 
+ .list-group .item-user{
+  font-size: 15px;
+  position: relative;
+
+ 
+ }
+ .list-group{
+   width: 100%;
+   margin: 0;
+ }
+ button{
+   color: gray;
+ }

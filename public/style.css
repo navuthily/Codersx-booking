@@ -1,6 +1,9 @@
-/* * {
-  display: none !important;
-}  */
+body{
+color: #292829;
+} 
+a{
+  color: #292829;
+} 
 .avatar{
   border-radius: 50%;
   width: 40px;
@@ -22,6 +25,13 @@ img{
   color:#9bc17b;
   font-size: 30px;
 }
+.fa-shopping-cart > span{
+ font-size: 10px;
+ position: relative;
+ top: -15px;
+ left: -10px;
+}
+
 h2{
  margin: 0 60% 0 0;
   padding:  0 0 0 5%;
@@ -48,4 +58,8 @@ a:hover{
 .delete{
   margin: 0 !important;
   display: inline;
+}
+
+.logo{
+  width: 10%;
 }
