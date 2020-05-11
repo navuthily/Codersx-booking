@@ -1,11 +1,11 @@
 
 const express = require("express");
 const app = express();
-const port= process.env.PORT ||9000;
+const port= process.env.PORT ||3000;
 require('dotenv').config();
 const mongoose = require('mongoose');
 mongoose
-.connect(process.env.MONGO_URL, {
+.connect(process.env.MONGO_URI, {
 useUnifiedTopology: true,
 useNewUrlParser: true,
 useFindAndModify: false
@@ -30,7 +30,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.SESSION_SECRET))
 var sessionMiddleware =require('./middleware/session.middleware')
 app.use(sessionMiddleware);
-app.use('/cart',routerCart)
 app.set("view engine", "pug");
 app.set("views", "./views/");
 const methodOverride = require("method-override");
@@ -53,6 +52,7 @@ app.get('/notification', (req,res)=>{
   res.render('notification', {title:'You submitted wrong password a lot of time. Please restart try again next time '});
 })
 app.use('/',countCookieRequest,routerAuth)
+app.use('/cart',routerCart)
 app.use('/user',userAuth,countCookieRequest, routerUser)
 app.use('/book',countCookieRequest,routerBook)
 app.use('/transaction',countCookieRequest,userAuth, routerTransaction)

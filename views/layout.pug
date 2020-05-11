@@ -30,7 +30,7 @@ html
       span.text-primary Cart (#{count ? count : 0})
       if(user)
         img.avatar(alt='Card image cap', src=`${user.avatar}`)
-        a(href='/user/edit')= user.username
+        a(href='/user/editprofile')= user.username
 
     block cdn-bootstrap
     block navbar   

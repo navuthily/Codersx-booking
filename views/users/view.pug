@@ -3,28 +3,31 @@ extends ../layout.pug
 block cdn-bootstrap
  p user:
    span &nbsp
-   span= user.username
-   form(method='POST', action=`/user/delete/${user.id}`)
+   span= u.username
+   form(method='POST', action=`/user/delete/${u.id}`, enctype='application/x-www-form-urlencoded')
     input(type='hidden', name='_method', value='DELETE')
     button.btn.btn-primary(type='submit') Delete
 
    button.btn.btn-primary(type='button', data-toggle='modal', data-target='#myModal') edit 
    #myModal.modal
        .modal-dialog
-        form.modal-content(role='form', method='POST', action=`/user/edit/${user.id}`, enctype="multipart/form-data")
+        form.modal-content(role='form', method='POST', action=`/user/edit/${u.id}`, enctype="multipart/form-data")
          .modal-header
-          h4.modal-title Update username
-          button.close(type='button', data-dismiss='modal') &times;
+            h4.modal-title Update username
+            button.close(type='button', data-dismiss='modal') &times;
     
          .modal-body 
            .form-group
              label  username
              input.form-control(type='text', name='username', placeholder='')
-             input#avatar.form-control(type='file', name='avatar')
+            
+           .form-group
+             label  Avatar 
+             input#avatar.form-control(type='file', name='avatar')             
          .modal-footer
-          button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-          input(type='hidden', name='_method', value='POST')
-          button.btn.btn-primary(type='submit') Update
+            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+            input(type='hidden', name='_method', value='POST')
+            button.btn.btn-primary(type='submit') Update
  script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')

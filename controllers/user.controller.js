@@ -12,18 +12,21 @@ cloudinary.config({
 var User = require('../models/user.model')
 const getUser = function (req, res) {
   User.find().then(function (users) {
-    User.findOne({ id: req.signedCookies.userId}).then(function (user) {
+    User.findOne({
+      id: req.signedCookies.userId
+    }).then(function (user) {
       res.render("users/index", {
-        users,user
+        users,
+        user
       });
-      })
+    })
   })
 }
 // res.render("users/index", {
 //   users
 // });
 const getSearch = function (req, res) {
-  var user = User.find({
+  var user = User.findOne({
     id: req.signedCookies.userId
   });
   var noMatch = null;
@@ -69,7 +72,7 @@ const getCreate = function (req, res) {
   res.render("users/create");
 };
 
-const postCreate =  function (req, res) {
+const postCreate = function (req, res) {
   req.body.id = shortid.generate();
   var errors = [];
   if (!req.body.username) {
@@ -101,24 +104,54 @@ const postCreate =  function (req, res) {
 };
 
 const viewDetailUser = function (req, res) {
-  var id = req.params.id;
-  var user = User.find({
-    id: id
-  });
-  return res.render("users/view", {
-    user
-  });
-};
 
+  User.findOne({
+    id: req.signedCookies.userId
+  }).then(function (user) {
+    User.findOne({
+      id: req.params.id
+    }).then(function (u) {
+      res.render("users/view", {
+        user,u
+      });
+    })
+  })
+};
 const editUser = async function (req, res) {
-  var id = req.params.id;
   const file = req.file.path;
   console.log(file);
   const path = await cloudinary.uploader
     .upload(file)
     .then(result => result.url)
     .catch(error => console.log("erro:::>", error));
-  User.updateOne(id, {
+  User.findOneAndUpdate({
+      id: req.params.id
+    }, {
+      username: req.body.username,
+      avatar: path,
+    },
+    function (err, updatedCampground) {
+      if (err) {
+        res.redirect("/user");
+      } else {
+        //redirect somewhere(show page)
+        res.redirect("/user");
+      }
+      if (req.file) {
+        fs.unlinkSync(req.file.path);
+      }
+    });
+};
+const editProfile = async function (req, res) {
+  const file = req.file.path;
+  console.log(file);
+  const path = await cloudinary.uploader
+    .upload(file)
+    .then(result => result.url)
+    .catch(error => console.log("erro:::>", error));
+  User.findOneAndUpdate({
+      id: req.signedCookies.userId
+    }, {
       username: req.body.username,
       avatar: path,
     },
@@ -135,10 +168,10 @@ const editUser = async function (req, res) {
     });
 };
 
-var deleteUser = function (req, res) {
-  var id = req.params.id;
-  User.deleteOne({
-    id
+var deleteUser = async function (req, res) {
+
+  await User.findOneAndRemove({
+    id: req.params.id
   }, function (err) {
     if (err) {
       console.log(err);
@@ -146,6 +179,16 @@ var deleteUser = function (req, res) {
   });
   res.redirect('/user');
 };
+const getEditProfile = function (req, res) {
+  User.findOne({
+    id: req.signedCookies.userId
+  }).then(function (user) {
+    res.render("users/editProfile", {
+
+      user
+    });
+  })
+}
 module.exports = {
   getUser,
   getSearch,
@@ -153,5 +196,7 @@ module.exports = {
   postCreate,
   viewDetailUser,
   deleteUser,
+  editProfile,
+  getEditProfile,
   editUser
 }

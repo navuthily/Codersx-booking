@@ -7,7 +7,9 @@ const {
   postCreate,
   viewDetailUser,
   deleteUser,
-  editUser
+  editProfile,
+  editUser,
+  getEditProfile
 } = require('../controllers/user.controller');
 
 const {
@@ -17,8 +19,9 @@ router.get("/", getUser);
 router.get("/search", getSearch);
 router.get("/create", getCreate);
 router.post("/create", postCreate);
+router.get('/editprofile',getEditProfile)
 router.get("/view/:id", viewDetailUser);
 router.delete("/delete/:id", deleteUser);
 router.post('/edit/:id', uploadMulter.single('avatar'), editUser)
-router.post('/edit', uploadMulter.single('avatar'), editUser)
+router.post('/editprofile', uploadMulter.single('avatar'), editProfile)
 module.exports = router;

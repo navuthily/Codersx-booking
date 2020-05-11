@@ -21,7 +21,8 @@
     "mongoose": "^5.9.10",
     "multer": "^1.4.2",
     "pug": "^2.0.4",
-    "shortid": "^2.2.15"
+    "shortid": "^2.2.15",
+    "bootstrap": "4.4.1"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,14 @@
   "homepage": "https://github.com/navuthily/yaya#readme",
   "description": "",
   "devDependencies": {
-    "nodemon": "^2.0.3"
+    "nodemon": "^2.0.3",
+    "autoprefixer": "9.7.6",
+    "browser-sync": "2.26.7",
+    "chokidar": "3.3.1",
+    "concurrently": "5.1.0",
+    "postcss": "7.0.27",
+    "prettier": "2.0.4",
+    "sass": "1.26.3",
+    "shelljs": "0.8.3"
   }
 }

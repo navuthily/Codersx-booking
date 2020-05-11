@@ -1,0 +1,23 @@
+body{
+  background-image: url('/assets/img/river.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+.search-form{
+  margin: 30px 30px 20px 20px;
+
+}
+
+
+.item-user{
+  width: 80%;
+  padding: 15px;
+  margin: 15px;
+}
+.item-user > a{
+  margin: 0 0 0 70%;
+ 
+
+}
+
