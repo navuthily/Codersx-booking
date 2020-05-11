@@ -9,7 +9,8 @@ const {
 getTransaction,
 getCreateTransaction,
 postCreateTransaction,
-finish
+finish,
+giveBookBack
 }=require('../controllers/transaction.controller')
 const {transactComplete}=require('../middleware/transaction.middleware')
 
@@ -19,4 +20,5 @@ router.get("/",getTransaction );
 router.get("/create",isAdmin,getCreateTransaction );
 router.post("/create", isAdmin,postCreateTransaction);
 router.get('/:id/finish',transactComplete,finish)
+router.put('/edit/:id',giveBookBack )
 module.exports = router;

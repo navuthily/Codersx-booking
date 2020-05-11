@@ -6,8 +6,6 @@ var User = require("../models/user.model");
 
 console.log(typeof (Book.find()) + 'vbhnjkgfvcxweewsx');
 var getTransaction = async (req, res) => {
-  //cai nay phai lay title và tên người dùng từ 2 bảng kia
-  // transactions, phải lọc ra nè
   let users = await User.find();
   let transactions = await Transaction.find();
   let books = await Book.find();
@@ -20,7 +18,8 @@ var getTransaction = async (req, res) => {
       bookTitle: book.title,
       userName: user.username,
       isComplete: trans.isComplete,
-      id: trans.id
+      id: trans.id,
+      bookId :book.id
 
 
     };
@@ -82,9 +81,26 @@ const finish = function (req, res) {
   });
   return res.render("transactions/finish");
 };
+
+const giveBookBack= async function (req,res){
+ await Transaction.findOneAndUpdate({
+    //id: req.params.id sia rồi cái pấm này của book
+    bookId:req.params.id
+  }, {
+   isComplete: true
+  },
+  function (err, updatedCampground) {
+    if (err) {
+      res.redirect("/home");
+    } else {
+      res.redirect("/transaction");
+    }
+  });
+}
 module.exports = {
   getTransaction,
   getCreateTransaction,
   postCreateTransaction,
   finish,
+  giveBookBack
 };

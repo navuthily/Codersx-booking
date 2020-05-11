@@ -192,11 +192,11 @@ const getEditProfile = function (req, res) {
     id: req.signedCookies.userId
   }).then(function (user) {
     res.render("users/editProfile", {
-
       user
     });
   })
 }
+
 module.exports = {
   getUser,
   getSearch,

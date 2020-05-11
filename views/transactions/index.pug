@@ -17,7 +17,9 @@ block cdn-bootstrap
         br
         span Status: 
         if(transaction.isComplete==false)
-          a(href="#") Chua tra
+          form.delete(method='POST', action=`/transaction/edit/${transaction.bookId}`, enctype='application/x-www-form-urlencoded')
+           input(type='hidden', name='_method', value='PUT')
+           button.btn.btn-primary(type='submit') Chưa trả
         else
-          a(href=`/transaction/${transaction.id}/finish`) Da tra 
+          a(href=`/transaction/${transaction.id}/finish`) Đã Trả 
   
