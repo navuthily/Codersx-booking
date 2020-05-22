@@ -5,7 +5,7 @@ const Transaction =require('../models/transaction.model')
 
 
 var transactComplete= (req, res, next) => {
-  if (Transaction.find(element => element.id==req.params.id)) {
+  if (Transaction.findOne({id:req.params.id})) {
     return next();
   }
   return res.redirect('/home');
