@@ -19,10 +19,11 @@ const getBook = function (req, res) {
   }).then(function (user) {
 
     Book.find().then(function (books) {
-      res.render("books/index", {
-        books,
-        user
-      });
+      // res.render("books/index", {
+      //   books,
+      //   user
+      // });
+      res.json( books);
     })
   })
 }
@@ -44,10 +45,11 @@ const getSearch = function (req, res) {
         if (allBooks.length < 1) {
           noMatch = "No Books match that query, please try again.";
         }
-        res.render("books/index", {
-          books: allBooks,
-          noMatch: noMatch
-        });
+        // res.render("books/index", {
+        //   books: allBooks,
+        //   noMatch: noMatch
+        // });
+        res.json([allBooks]);
       }
     });
   } else {
@@ -56,10 +58,11 @@ const getSearch = function (req, res) {
       if (err) {
         console.log(err);
       } else {
-        res.render("books/index", {
-          books: allBooks,
-          noMatch: noMatch
-        });
+        // res.render("books/index", {
+        //   books: allBooks,
+        //   noMatch: noMatch
+        // });
+        res.json([allBooks]);
       }
     });
   }

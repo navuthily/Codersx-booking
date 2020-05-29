@@ -1,7 +1,8 @@
 
 const express = require("express");
+var cors = require('cors')
 const app = express();
-const port= process.env.PORT ||3000;
+const port= process.env.PORT ||4000;
 require('dotenv').config();
 const mongoose = require('mongoose');
 mongoose
@@ -23,6 +24,7 @@ var routerAuth=require('./routes/auth')
 var routerHome=require('./routes/home')
 const bodyParser = require("body-parser")
 const {userAuth,userIsNotAuth}=require('./middleware/auth.middleware')
+app.use(cors())
 app.use(express.static("public"));
 app.use(express.static("files"));
 app.use(bodyParser.json()); // for parsing application/json
