@@ -1,0 +1,7 @@
+extends ../layout.pug
+block cdn-bootstrap
+  h1= message
+  form(action='/post/create' method='post' enctype="multipart/form-data")
+    input(type='text' name='contentPost' placeholder="content")
+    input(type='file' name='imagePost' placeholder=" imagePost")
+    button Add

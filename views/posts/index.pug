@@ -1,0 +1,26 @@
+extends ../layout.pug
+
+block cdn-bootstrap
+ h2.panel-title  List posts
+ button.btn.btn-secondary(type='button' ) 
+  a(href='/post/create') create post 
+ form(action='/post/search' method='get')
+   input(type='text' name='search')
+   button Search
+ 
+   .container.nana
+     if(noMatch !== underfined)
+       p= noMatch
+     each post in posts 
+      .card(style='width: 18rem;')
+       img.card-img-top(alt='Card image cap', src=`${post.imagePost}`, height='200px', width='150px')
+       .card-body
+        p.card-text  content : 
+         span= post.contentPost
+        a.btn.btn-primary(href=`/post/view/${post.id}`) View more
+        a(href='/cart/add/' + post.id) Thuê
+
+
+ script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js')
+ script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
+ script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')

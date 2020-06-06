@@ -2,7 +2,7 @@
 const express = require("express");
 var cors = require('cors')
 const app = express();
-const port= process.env.PORT ||5000;
+const port= process.env.PORT ||4000;
 require('dotenv').config();
 const mongoose = require('mongoose');
 mongoose
@@ -19,6 +19,7 @@ const cookieParser = require('cookie-parser')
 var routerCart = require('./routes/cart.route')
 var routerUser=require('./routes/users')
 var routerBook=require('./routes/books')
+var routerPost=require('./routes/post')
 var routerTransaction=require('./routes/transaction')
 var routerAuth=require('./routes/auth')
 var routerHome=require('./routes/home')
@@ -57,6 +58,7 @@ app.use('/',countCookieRequest,routerAuth)
 app.use('/cart',routerCart)
 app.use('/user',userAuth,countCookieRequest, routerUser)
 app.use('/book',countCookieRequest,routerBook)
+app.use('/post',countCookieRequest,routerPost)
 app.use('/transaction',countCookieRequest,userAuth, routerTransaction)
 app.use('/home',countCookieRequest,routerAuth,routerHome)
 app.listen(port, () => {

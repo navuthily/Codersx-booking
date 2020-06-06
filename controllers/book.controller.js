@@ -19,11 +19,11 @@ const getBook = function (req, res) {
   }).then(function (user) {
 
     Book.find().then(function (books) {
-      // res.render("books/index", {
-      //   books,
-      //   user
-      // });
-      res.json( books);
+      res.render("books/index", {
+        books,
+        user
+      });
+  //    res.json( books);
     })
   })
 }

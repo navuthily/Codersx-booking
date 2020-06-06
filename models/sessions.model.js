@@ -2,12 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const sessionSchema = new Schema({
   id: String,
-  // cart: [
-  //   {
-  //     bookId: { type: String, ref: "Book" },
-  //     quantity: Number
-  //   }
-  // ]
   cart: [{
     bookId: {
       type: String,
