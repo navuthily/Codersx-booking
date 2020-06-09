@@ -43,5 +43,5 @@ module.exports.addToCartHeart = async (req, res) => {
 //     });
 //   }
   //howacj có thể là đơn giản hơn (req.body)
-  res.redirect("/post");
-};
+//   res.redirect("/post");
+// };
