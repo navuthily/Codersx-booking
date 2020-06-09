@@ -9,7 +9,7 @@ block cdn-bootstrap
    button Search
  
  .container.nana
-     if(noMatch !== underfined)
+     if(noMatch !== undefined)
        p= noMatch
      each post in posts 
       .card(style='width: 18rem;')
@@ -19,7 +19,7 @@ block cdn-bootstrap
          span= post.contentPost
         a.btn.btn-primary(href=`/post/view/${post.id}`) View more
         a(href='/hearts/add/' + post.id) heart
-        form(action=`/post/comment/${post.id}` method='POST' enctype="multipart/form-data")
+        form(action=`/post/comment/${post.id}` method='POST')
           input(type="text" name='contentComment')
           button add
 
