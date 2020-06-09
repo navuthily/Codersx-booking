@@ -69,39 +69,32 @@ const viewDetailPost = function (req, res) {
   })
 };
 const postComment = async function (req, res) {
+  let contentComment= req.body.contentComment;
+  console.log(contentComment+"<<= content comment")
   let commentByUserId = req.signedCookies.userId;
   let postId = req.params.postId;
-  console.log(postId);
-  console.log(postId + 'postid');
   if (!postId) {
     res.redirect("/post");
   }
   let post = await Post.findOne({
     id: postId
   });
-  let user = post.comments.find(
-    cartItem => cartItem.commentByUserId === commentByUserId
-  );
-  if (user) {
-    user.contentComment = req.body.contentComment;
-    console.log(user.contentComment)
-    post.save();
-  } else {
+  console.log(post+"post nos cos gif")
+
     await Post.findOneAndUpdate({
       id: postId
     }, {
       $push: {
         comments: {
           commentByUserId,
-          contentComment:req.body.contentComment
+          contentComment: req.body.contentComment
         }
       }
     });
     return res.redirect("/post");
-  }
+ 
 }
 const getComment =function (req,res){
-  // return res.send("fcvgbhj");
   return res.redirect("/post");
 }
 module.exports = {

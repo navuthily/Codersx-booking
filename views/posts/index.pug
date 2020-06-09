@@ -18,7 +18,7 @@ block cdn-bootstrap
         p.card-text  content : 
          span= post.contentPost
         a.btn.btn-primary(href=`/post/view/${post.id}`) View more
-        a(href='/hearts/add/' + post.id) Thuê
+        a(href='/hearts/add/' + post.id) heart
         form(action=`/post/comment/${post.id}` method='POST' enctype="multipart/form-data")
           input(type="text" name='contentComment')
           button add
