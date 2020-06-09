@@ -17,6 +17,7 @@ console.log(`DB Connection Error: ${err.message}`);
 });
 const cookieParser = require('cookie-parser')
 var routerCart = require('./routes/cart.route')
+var routerHeart = require('./routes/heart.route')
 var routerUser=require('./routes/users')
 var routerBook=require('./routes/books')
 var routerPost=require('./routes/post')
@@ -32,7 +33,9 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(cookieParser(process.env.SESSION_SECRET))
 var sessionMiddleware =require('./middleware/session.middleware')
+var postingMiddleware = require('./middleware/posting.middleware')
 app.use(sessionMiddleware);
+app.use(postingMiddleware);
 app.set("view engine", "pug");
 app.set("views", "./views/");
 const methodOverride = require("method-override");
@@ -56,6 +59,7 @@ app.get('/notification', (req,res)=>{
 })
 app.use('/',countCookieRequest,routerAuth)
 app.use('/cart',routerCart)
+app.use('/hearts',routerHeart)
 app.use('/user',userAuth,countCookieRequest, routerUser)
 app.use('/book',countCookieRequest,routerBook)
 app.use('/post',countCookieRequest,routerPost)

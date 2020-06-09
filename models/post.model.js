@@ -14,7 +14,7 @@ const postSchema = new Schema({
   }],
   comments: [
     {
-    userId: {
+    commentByUserId: {
       type: String,
       ref: "User"
     },

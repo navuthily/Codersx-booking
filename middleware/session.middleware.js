@@ -1,6 +1,9 @@
 const shortid = require("shortid");
 var Session = require('../models/sessions.model')
+
 module.exports = async (req, res, next) => {
+ 
+
    if (req.signedCookies.sessionId == undefined) {
     var sessionId = shortid.generate();
     res.cookie('sessionId', sessionId, {
