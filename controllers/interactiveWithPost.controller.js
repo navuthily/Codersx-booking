@@ -1,7 +1,6 @@
 const Post= require("../models/post.model.js");
 module.exports.addToCartHeart = async (req, res) => {
   let heartByUserId = req.signedCookies.userId;
- 
   let postId = req.params.postId;
  console.log(postId+'postid');
   if (!postId) {
@@ -25,7 +24,6 @@ module.exports.addToCartHeart = async (req, res) => {
 //
 module.exports.addToCartComment = async (req, res) => {
   let commentByUserId = req.signedCookies.userId;
- 
   let postId = req.params.postId;
  console.log(postId+'postid');
   if (!postId) {

@@ -51,7 +51,7 @@ const postCreate = async function (req, res) {
   if (req.file) {
     fs.unlinkSync(req.file.path);
   }
-  console.log(typeof (req.body.price));
+
   return res.redirect("/post");
 };
 const viewDetailPost = function (req, res) {
@@ -68,11 +68,47 @@ const viewDetailPost = function (req, res) {
     })
   })
 };
+const postComment = async function (req, res) {
+  let commentByUserId = req.signedCookies.userId;
+  let postId = req.params.postId;
+  console.log(postId);
+  console.log(postId + 'postid');
+  if (!postId) {
+    res.redirect("/post");
+  }
+  let post = await Post.findOne({
+    id: postId
+  });
+  let user = post.comments.find(
+    cartItem => cartItem.commentByUserId === commentByUserId
+  );
+  if (user) {
+    user.contentComment = req.body.contentComment;
+    console.log(user.contentComment)
+    post.save();
+  } else {
+    await Post.findOneAndUpdate({
+      id: postId
+    }, {
+      $push: {
+        comments: {
+          commentByUserId,
+          contentComment
+        }
+      }
+    });
+    return res.redirect("/post");
+  }
+}
+const getComment =function (req,res){
+  // return res.send("fcvgbhj");
+  return res.redirect("/post");
+}
 module.exports = {
-  getPost, 
+  getPost,
   getCreate,
   postCreate,
-  // viewDetailBook,
-  // deleteBook,
-  // editBook
+  getComment,
+  postComment
+
 }

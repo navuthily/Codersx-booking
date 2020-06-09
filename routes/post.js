@@ -5,7 +5,8 @@ const{
   getPost, 
   getCreate,
   postCreate,
-  
+  getComment,
+  postComment
 }=require('../controllers/post.controller')
 const {
   uploadMulter,
@@ -13,11 +14,8 @@ const {
 
 const {isAdmin,isNotAdmin}=require('../middleware/isAdmin.middleware')
 router.get("/",getPost);
-
-//router.get("/search", getSearch);
 router.get("/create", userAuth,isAdmin,getCreate);
 router.post("/create",userAuth,isAdmin,uploadMulter.single('imagePost'), postCreate);
-// router.get("/view/:id", viewDetailBook);
-// router.delete("/delete/:id", deleteBook);
-//router.post('/edit/:id',uploadMulter.single('cover'), editBook)
+router.get('/comment/:postId', userAuth, getComment)
+router.post('/comment/:postId', userAuth,postComment)
 module.exports = router;

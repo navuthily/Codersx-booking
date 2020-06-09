@@ -30,7 +30,7 @@ app.use(cors())
 app.use(express.static("public"));
 app.use(express.static("files"));
 app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(cookieParser(process.env.SESSION_SECRET))
 var sessionMiddleware =require('./middleware/session.middleware')
 var postingMiddleware = require('./middleware/posting.middleware')
