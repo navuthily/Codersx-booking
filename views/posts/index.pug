@@ -8,7 +8,7 @@ block cdn-bootstrap
    input(type='text' name='search')
    button Search
  
-   .container.nana
+ .container.nana
      if(noMatch !== underfined)
        p= noMatch
      each post in posts 
@@ -19,7 +19,7 @@ block cdn-bootstrap
          span= post.contentPost
         a.btn.btn-primary(href=`/post/view/${post.id}`) View more
         a(href='/hearts/add/' + post.id) Thuê
-        form(action=`post/comment/${post.id}` method='POST' enctype="multipart/form-data")
+        form(action=`/post/comment/${post.id}` method='POST' enctype="multipart/form-data")
           input(type="text" name='contentComment')
           button add
 

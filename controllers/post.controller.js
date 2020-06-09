@@ -93,7 +93,7 @@ const postComment = async function (req, res) {
       $push: {
         comments: {
           commentByUserId,
-          contentComment
+          contentComment:req.body.contentComment
         }
       }
     });
