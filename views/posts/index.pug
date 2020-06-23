@@ -19,6 +19,8 @@ block cdn-bootstrap
          span= post.contentPost
         a.btn.btn-primary(href=`/post/view/${post.id}`) View more
         a(href='/hearts/add/' + post.id) heart
+        p= counts
+        p nana
         form(action=`/post/comment/${post.id}` method='POST')
           input(type="text" name='contentComment')
           button add

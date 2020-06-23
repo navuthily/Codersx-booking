@@ -7,26 +7,25 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
-
 var Post = require('../models/post.model')
 var User = require('../models/user.model')
-
-const getPost = function (req, res) {
-
+const getPost = async function (req, res) {
   User.findOne({
     id: req.signedCookies.userId
   }).then(function (user) {
+    Post.find().then(async function (posts) {
 
-    Post.find().then(function (posts) {
-      res.render("posts/index", {
-        posts,
-        user
-      });
+    // console.log(a); 
+    //   console.log(counts+"counts");
+      // res.render("posts/index", {
+      //   posts,
+      //   user
+      // });
+      res.json({posts, user })
 
     })
   })
 }
-
 const getCreate = function (req, res) {
   var user = User.find({
     id: req.signedCookies.userId
@@ -51,7 +50,6 @@ const postCreate = async function (req, res) {
   if (req.file) {
     fs.unlinkSync(req.file.path);
   }
-
   return res.redirect("/post");
 };
 const viewDetailPost = function (req, res) {
@@ -79,8 +77,6 @@ const postComment = async function (req, res) {
   let post = await Post.findOne({
     id: postId
   });
-  console.log(post+"post nos cos gif")
-
     await Post.findOneAndUpdate({
       id: postId
     }, {
@@ -92,7 +88,6 @@ const postComment = async function (req, res) {
       }
     });
     return res.redirect("/post");
- 
 }
 const getComment =function (req,res){
   return res.redirect("/post");
@@ -103,5 +98,4 @@ module.exports = {
   postCreate,
   getComment,
   postComment
-
 }
