@@ -17,11 +17,11 @@ const getPost = async function (req, res) {
 
     // console.log(a); 
     //   console.log(counts+"counts");
-      // res.render("posts/index", {
-      //   posts,
-      //   user
-      // });
-      res.json({posts, user })
+      res.render("posts/index", {
+        posts,
+        user
+      });
+  //    res.json({posts, user })
 
     })
   })
