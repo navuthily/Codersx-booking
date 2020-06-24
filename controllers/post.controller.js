@@ -35,7 +35,7 @@ const getApiPost = async function (req, res) {
     // console.log(a); 
     //   console.log(counts+"counts");
  
-      res.json({posts, user })
+      res.json(posts)
 
     })
   })
