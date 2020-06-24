@@ -6,7 +6,8 @@ const{
   getCreate,
   postCreate,
   getComment,
-  postComment
+  postComment,
+  getApiPost
 }=require('../controllers/post.controller')
 const {
   uploadMulter,
@@ -14,6 +15,8 @@ const {
 
 const {isAdmin,isNotAdmin}=require('../middleware/isAdmin.middleware')
 router.get("/",getPost);
+router.get("/api",getApiPost);
+
 router.get("/create", userAuth,isAdmin,getCreate);
 router.post("/create",userAuth,isAdmin,uploadMulter.single('imagePost'), postCreate);
 router.get('/comment/:postId', userAuth, getComment)

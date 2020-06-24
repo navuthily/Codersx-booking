@@ -26,6 +26,20 @@ const getPost = async function (req, res) {
     })
   })
 }
+const getApiPost = async function (req, res) {
+  User.findOne({
+    id: req.signedCookies.userId
+  }).then(function (user) {
+    Post.find().then(async function (posts) {
+
+    // console.log(a); 
+    //   console.log(counts+"counts");
+ 
+      res.json({posts, user })
+
+    })
+  })
+}
 const getCreate = function (req, res) {
   var user = User.find({
     id: req.signedCookies.userId
@@ -97,5 +111,6 @@ module.exports = {
   getCreate,
   postCreate,
   getComment,
-  postComment
+  postComment,
+  getApiPost
 }
