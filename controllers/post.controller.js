@@ -58,6 +58,7 @@ const postCreate = async function (req, res) {
     .catch(error => console.log("erro:::>", error));
   Post.create({
     id: req.body.id,
+    authorid:req.signedCookies.userId,
     contentPost: req.body.contentPost,
     imagePost: path,
   });
@@ -106,11 +107,64 @@ const postComment = async function (req, res) {
 const getComment =function (req,res){
   return res.redirect("/post");
 }
+var getApi = async (req, res) => {
+  let users = await User.find();
+  let posts = await Post.find();
+  let changePost = posts.map(post => {
+    let user = users.find(user => user.id === post.authorid);
+    var hearts= post.hearts;
+    var c = hearts.map(heart => {
+      let u = users.find(us => us.id === heart.heartByUserId)
+      return{
+     heartByUser:u.username,
+     quantity:heart.quantity
+      }
+    });
+
+
+
+
+
+    var comments = post.comments;
+    var d = comments.map(comment =>{
+      let uus=users.find(uus =>uus.id === comment.commentByUserId)
+      return{
+        commentByUser:uus.username,
+        contentComment:comment.contentComment
+      }
+    })
+
+    return {
+    
+      id: post.id,
+      userName: user.username,
+      contentPost: post.contentPost,
+      imagePost: post.imagePost,
+      hearts:c,
+      comments:d
+    };
+  });
+  User.findOne({
+    id: req.signedCookies.userId
+  }).then(function (user) {
+    Post.find().then(function (posts) {
+      User.find().then(function (users) {
+//console.log(changePost);
+         res.json({
+        changePost//t muốn cái khác cơ
+        })
+      })
+    })
+
+  })
+
+};
 module.exports = {
   getPost,
   getCreate,
   postCreate,
   getComment,
   postComment,
-  getApiPost
+  getApiPost,
+  getApi
 }
