@@ -57,10 +57,10 @@ const postCreate = async function (req, res) {
     .then(result => result.url)
     .catch(error => console.log("erro:::>", error));
   Post.create({
-    id: req.body.id,
-    authorid:req.signedCookies.userId,
+    id: 'cfvgbhjn',//req.body.id,
+    authorid:  "leSPD0q8u",//req.signedCookies.userId,
     contentPost: req.body.contentPost,
-    imagePost: path,
+    imagePost: 'dfghj'//path,
   });
   if (req.file) {
     fs.unlinkSync(req.file.path);
